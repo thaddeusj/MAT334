@@ -1,0 +1,107 @@
+\section{Tuesday, July 16}
+
+\todaybox{ We introduce the notion of the radius of convergence of a power series, and look into how to find it.}
+
+Last class, we showed that holomorphic functions have power series, which are valid on $B_r(z_0)$ if $f$ is analytic on $B_r(z_0)$. This raises some questions though:
+
+\begin{itemize}
+\item How can we tell more generally when a power series converges?
+\item Holomorphic functions have power series. Are power series holomorphic?
+\end{itemize}
+
+Let's begin by discussing the first of these.
+
+\begin{defbo}{Radius of Convergence}{}\index{Power series!radius of convergence} The radius of convergence of a power series $\sum_{n = 0}^\infty a_n(z-z_0)^n$ is:
+
+$$R = \max\{r\in \R| \text{ the series converges on } B_r(z_0)\}$$
+
+If no such $R$ exists, then we say $R = 0$. And if the series converges on all balls $B_r(z_0)$, we say $R = \infty$.
+\end{defbo}
+
+Some things to keep in mind here: if we're looking at power series of a holomorphic function, the radius of convergence depends on the center of the series. It's not usually a one size fits all situation. There is one situation where that's not the case though:
+
+\begin{ex}{}{} Suppose $f(z)$ is entire. Then the power series expansion for $f(z)$ at $z_0$ has radius of convergence $R = \infty$ for any $z_0$.
+
+However, theorem \ref{thm:holoAna} tells us that if $f(z)$ is analytic on $B_r(z_0)$, then its power series expansion at $z_0$ converges to the value of the function on $B_r(z_0)$. As such, $R\ge r$. But since $f(z)$ is analytic on $B_r(z_0)$ for all $r$, this means that $R> r$ for all $r$. No real number satisfies this, and so $R = \infty$.
+\end{ex}
+
+Alright, this helps us figure out the radius of convergence in some situations. But what if we don't know what function the power series gives? Is there some way to find $R$ in that case?
+
+\begin{thmbo}{Ratio Test for Power Series}{}\index{Power series!ratio test}
+Suppose $\lim_{n \rightarrow \infty} \left|\frac{a_{n+1}}{a_n}\right| = L$ where $L \in [0,\infty]$. Then:
+
+\begin{itemize} 
+\item If $L = 0$, the series $\sum_{n = 0}^\infty a_n(z-z_0)^n$ has radius of convergence $R = \infty$.
+\item If $L = \infty$, the series has radius of convergence $0$.
+\item If $L\in (0,\infty)$, the series has radius of convergence $R = \frac{1}{L}$.
+\end{itemize}
+\end{thmbo}
+
+\begin{proof} We apply the usual ratio test to the series $\sum_{n = 0}^\infty a_n(z-z_0)^n$.
+
+We know the series always converges when $z = z_0$, so we only need to consider when $z\ne z_0$. We compute:
+
+$$\lim_{n\rightarrow\infty} \left|\frac{a_{n+1}(z-z_0)^{n+1}}{a_n(z-z_0)^n}\right| = L|z-z_0|$$
+
+Now, if $L|z-z_0| < 1$, this series converges absolutely. And when $L|z-z_0| > 1$, it diverges. So, we consider our cases:
+
+\begin{itemize}
+\item If $L = 0$, then $L|z-z_0| = 0<1$ for all $z\in \C$. As such, the series converges everywhere and $R = \infty$.
+\item If $L = \infty$, we have that $\lim_{n\rightarrow\infty} \left|\frac{a_{n+1}(z-z_0)^{n+1}}{a_n(z-z_0)^n}\right| > 1$ for any $z\ne z_0$. As such, the series diverges on $\C\setminus\{z_0\}$ and $R = 0$.
+\item If $L\in (0,\infty)$, the the series converges when $|z-z_0|< \frac{1}{L}$ and diverges when $|z-z_0| > \frac{1}{L}$. As such, $B_{\frac{1}{L}}(z_0)$ is the largest open ball on which the series converges, so $R = \frac{1}{L}$.
+\end{itemize}
+\end{proof}
+
+
+The helpful mnemonic here is that $\frac{1}{R} = \lim_{n\rightarrow\infty} \left|\frac{a_{n+1}(z-z_0)^{n+1}}{a_n(z-z_0)^n}\right|$, being aware that this is not strictly true if the limit is $0$ or $\infty$. 
+
+\begin{ex}{}{} Find the radius of convergence of $\sum_{n = 0}^\infty \frac{(-1)^nz^n}{2^nn^3}$.
+
+Well, we compute:
+
+$$\frac{1}{R} = \lim_{n\rightarrow \infty} \left|\frac{\frac{(-1)^{n+1}}{2^{n+1}(n+1)^3}}{\frac{(-1)^n}{2^nn^3}}\right| = \lim_{n\rightarrow \infty} \frac{n^3}{2(n+1)^3} = \frac{1}{2}$$
+
+As such, $R = 2$.
+\end{ex}
+
+Let's look at a bit of a more complicated example.
+
+\begin{ex}{}{} $\cos(z)$ has power series expansion at $z_0 = 0$:
+
+$$\cos(z) = \sum_{k = 0}^\infty \frac{(-1)^kz^{2k}}{(2k)!}$$
+
+Now, since $\cos(z)$ is entire, we know this has radius of convergence $R = \infty$. Out of curiousity, is it possible to use this formula to find this?
+
+Well, we have:
+
+$$\cos(z) = 1 + 0z -\frac{1}{2}z^2 + 0z^3 + \frac{1}{24}z^4 + 0z^5 + ...$$
+
+In this case, $a_{2n} = \frac{(-1)^n}{(2n)!}$ and $a_{2n+1} = 0$. So, the sequence $b_n = \frac{a_{n+1}}{a_n}$ has $b_{2n} = 0$ and $b_{2n+1}$ undefined! So we can't take $\lim_{n\rightarrow \infty}|b_n|$, since the sequence isn't defined for all $n$.
+
+How can we fix this? One way is to set $w = z^2$. Then:
+
+$$\cos(z) = \sum_{n = 0}^\infty \frac{(-1)^nw^n}{(2n)!}$$
+
+This series isn't missing any terms, so we can use the ratio test with $a_n = \frac{(-1)^n}{(2n)!}$. We find that this series converges when $|w| < R$ where:
+
+$$\frac{1}{R} = \lim_{n\rightarrow \infty} \left| \frac{\frac{(-1)^{n+1}}{(2(n+1))!}}{\frac{(-1)^n}{(2n)!}}\right| = \lim_{n\rightarrow \infty} \frac{1}{(2n+2)(2n+1)} = 0$$
+
+So, this series (in terms of $w$!) has radius of convergence $R = \infty$. Since it converges for all $w$, it also converges for all $z$.
+\end{ex}
+
+This is a useful trick, which will probably show up again (hint hint). In this case, it didn't matter that we had $|w| < R$ vs. $|z| < R$. But, for example, if we found that the series in terms of $w$ had radius of convergence $4$, we would have $|w| < 4$. But $w = z^2$, so this gives $|z^2|< 4$ or $|z| < 2$. The moral: be careful.
+
+Can we find the radius of convergence of the power series for some function without actually computing the power series?
+	
+\begin{ex}{}{} Consider $f(z) = \frac{1}{z^2 - 1}$. This function is analytic on $\C\setminus\{\pm1\}$, so it has a power series expansion at each of those points by theorem \ref{thm:holoAna}. Let's find the radius of convergence of this series at $z_0 = 3$.
+
+Rather than actually compute the power series, notice that the theorem tells us that if $f(z)$ is analytic on $B_r(z_0)$. then:
+
+$$f(z) = \sum_{n = 0}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n$$
+
+\noin for any $z\in B_r(z_0)$. As such, if $f(z)$ is analytic on $B_r(z_0)$, then this power series must have radius of convergence $R \ge r$.
+
+In our case, notice that $B_2(3)$ is the largest ball centered at $3$ on which $f(z)$ is analytic. As such, we have that $R\ge 2$.
+
+In fact, $R = 2$! But to see this, we're going to need to develop some more techniques.
+\end{ex}

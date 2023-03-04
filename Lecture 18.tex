@@ -1,0 +1,184 @@
+\section{Thursday, July 18}
+
+\todaybox{We continue our discussion of radius of convergence. In particular, we discuss other ways to find the radius of convergence of a power series for some analytic function $f(z)$ that don't involve explicitly calculating the power series of $f(z)$.
+
+We also prove that removable discontinuities can be ``removed" to give an analytic function.}
+
+Last class, we left off with an example. We wanted to find the radius of convergence of the power series for $f(z)= \frac{1}{z^2 - 1}$ centered at $z_0 = 3$. We saw that since $f(z)$ is analytic on $B_1(3)$, that $R\ge 2$. We claimed that $R = 2$.
+
+To finish this example without an explicit formula for the power series in question, we need some more tools to discuss the radius of convergence. We prove (or state) some theorems that will help us determine the radius of convergence.
+
+\begin{thmbo}{}{} Suppose $f(z) = \sum_{n = 0}^\infty a_n(z-z_0)^n$. Let $w\in \C$.
+
+If $f(z)$ converges at $z = w$, then $f(z)$ converges at $z$ for all $z\in \C$ with $|z-z_0| < |w-z_0|$. And if $f(z)$ diverges at $z = w$, it diverges for all $z\in\C$ with $|z-z_0| > |w-z_0|$.
+\end{thmbo}
+
+Before we prove this, let's talk about what this means. If this power series has radius of convergence $R$, this is saying that the series diverges for all $z\in\C$ with $|z-z_0| > R$. Why? Well, if it converges at such a $z$, then it converges on $B_{|z-z_0|}(z_0)$ which is a bigger ball than $B_R(z_0)$. Since $B_R(z_0)$ is the largest ball on which the series converges, this can't happen. So we get the useful corollary:
+
+\begin{corbo}{}{} If the power series $ \sum_{n = 0}^\infty a_n(z-z_0)^n$ has radius of convergence $R$, then the series may only converge on $\{z\in\C||z-z_0|\le R\}$. It diverges if $|z-z_0| > R$ and may either converge or diverge when $|z-z_0| = R$.
+\end{corbo}
+
+\begin{proof}We now prove the theorem. The idea is to try to write the series as being close to a geometric series.
+
+Suppose $\sum_{n=0}^\infty a_n(z-z_0)^n$ converges at $z = w$. Suppose $|z' - z_0| < |w-z_0|$. Then:
+
+$$\sum_{n = 0}^\infty a_n(z'-z_0)^n = \sum_{n = 0}^\infty a_n(w-z_0)^n \frac{(z'-z_0)^n}{(w-z_0)^n}$$
+
+Let $\rho = \frac{z'-z_0}{w-z_0}$. Note that $|\rho| < 1$ since $|z'-z_0| < |w-z_0|$.
+
+Now, since $\sum_{n=0}^\infty a_n(w-z_0)^n$ converges, we know that $\lim_{n\rightarrow 0} a_n(w-z_0)^n = 0$ by the divergence test. As such, $\exists M\in \R$ so that for all $n\in N$, $|a_n(w-z_0)^n| < M$.
+
+Now, we have that $|a_n(z'-z_0)^n| \le M\rho^n$. Since $\sum_{n = 0}^\infty M\rho^n$ converges, the comparison test for real series tells us that $\sum_{n = 0}^\infty |a_n(z'-z_0)^n|$ converges as well.
+
+Therefore, $\sum_{n = 0}^\infty a_n(z'-z_0)^n$ converges absolutely, and hence converges.
+\end{proof}
+
+Next, we state a very important but very technical result. The proof will appear in the appendices.
+
+\begin{thmbo}{Power Series are differentiable}{analDiff} Suppose $f(z) = \sum_{n = 0}^\infty a_n(z-z_0)^n$ has radius of convergence $R> 0$. Then $g(z) = \sum_{n=1}^\infty na_n(z-z_0)^{n-1}$ also has radius of convergence $R$ and $f'(z) = g(z)$.
+\end{thmbo}
+
+To put this more plainly, the derivative of a power series is the term by term derivative. This also lets us prove something about primitives of power series.
+
+\begin{thmbo}{Power Series have primitives}{} Suppose $f(z) = \sum_{n = 0}^\infty a_n(z-z_0)^n$ has radius of convergence $R> 0$. Then $F(z) = C + \sum_{n=0}^\infty \frac{a_n}{n+1}(z-z_0)^{n+1}$ also has radius of convergence $R$ and $F'(z) = f(z)$.
+\end{thmbo}
+
+\begin{proof} To begin, we show that they have the same radius of convergence. We know that $f(z)$ has radius of convergence:
+
+$$R = \lim_{n\rightarrow \infty} \left|\frac{a_n}{a_{n+1}}\right|$$
+
+\noin if this limit exists. (A more precise version of this argument would use the concept of $\limsup$ which always exists.)
+
+If $F(z)$ has radius of convergence $R_F$, then:
+
+$$R_F = \lim_{n\rightarrow \infty} \left|\frac{(n+2)a_n}{na_{n+1}}\right| = \lim_{n\rightarrow \infty} \left|\frac{a_n}{a_{n+1}}\right| = R$$
+
+So they have the same radius of convergence. Then, by theorem \ref{thm:analDiff}, $F'(z) = f(z)$.
+\end{proof}
+
+Let's finish off our example from last class before we talk about other ways to use these results.
+
+\begin{ex}{}{} We know that the power series for $\frac{1}{z^2 - 1}$ centered at $z_0 = 3$ has radius of convergence $R \ge 2$.
+
+Suppose $R> 2$. This tells us that the power series $f(z) = \sum_{n = 0}^\infty a_n(z-z_0)^n$ converges on $B_R(3)$, and hence is differentiable there. This implies the series is continuous at $z = 1$.
+
+Now, we know that for $|z-z_0| < 2$ that $f(z) = \frac{1}{z^2 - 1}$, and so we consider the limit as $z\rightarrow 1$ along the real axis. Set $z = r$ with $r\in(1,\infty)$. Then:
+
+$$f(1) = \lim_{z\rightarrow 1} f(z) = \lim_{r\rightarrow 1^+} f(r) = \lim_{r\rightarrow 1^+} \frac{1}{r^2 - 1} = \infty$$
+
+This is a contradiction, since we know that $f(1)$ is defined (and therefore not $\infty$.) So we cannot have $R > 2$, leaving us with $R = 2$.
+\end{ex}
+
+Does this apply more broadly? What about other functions?
+
+\begin{thmbo}{}{} Suppose $f(z)$ is analytic on $\C\setminus\{z_1,z_2,\dots\}$ where each $z_j\in D$ and is either a pole or essential singularity for $f(z)$.
+
+Let $z_0\in D$ and $z_0\ne z_j$ for all $j$. Then the radius of convergence for the power series expansion of $f(z)$ centered at $z_0$ is:
+
+$$R = \min\{|z_0-z_j|\}$$
+\end{thmbo}
+
+\begin{proof} The proof proceed analagously to the previous example. We know that $f(z)$ is analytic on $B_R(z_0)$, since this ball contains none of the isolated singularities of $f(z)$.
+
+However, since $\lim_{z\rightarrow z_j} f(z)$ does not exist, we cannot extend the power series to be valid beyond any of the $z_j$. Since $B_R(z_0)$ is the largest ball containing none of the $z_j$, this is the largest ball on which the series converges.
+\end{proof}
+
+What other ways can we use these results? They allow us to create new series without much fuss, so let's see what this can give us.
+
+\begin{ex}{}{} Find the radius of convergence for $\sum_{n = 1}^\infty nz^{n-1}$ and $\sum_{n = 0}^\infty \frac{z^{n+1}}{n+1}$. What functions are these?
+
+We recognize that $nz^{n-1}$ is the derivative of $z^n$. So:
+
+$$\sum_{n = 1}^\infty nz^{n-1} = \sum_{n = 1}^\infty \frac{d}{d\;z}z^n = \frac{d}{d\hspace{1pt}z}\frac{1}{1-z} = \frac{1}{(1-z)^2}$$
+
+And theorem $\ref{thm:analDiff}$ tells us that this series has the same radius of convergence as the power series for $\frac{1}{1-z}$ centered at $z_0 = 0$, which is $R = 1$.
+
+Similarly, we recognize that $\frac{z^{n+1}}{n+1}$ is a primitive for $z^n$, and so $\sum_{n = 0}^\infty \frac{z^{n+1}}{n+1}$ is a primitive for $\frac{1}{1-z}$. As such, it also has radius of convergence $R = 1$ and we have:
+
+$$\sum_{n = 0}^\infty \frac{z^{n+1}}{n+1} = -\log_0(1-z) + C$$
+
+\noin for some logarithm $\log_0(z)$. Luckily, evaluating at $z = 0$ gives $0 = -\log_0(1) + C$. We can therefore choose $\log_0(z) = \Log(z)$ and $C = 0$.
+\end{ex}
+
+\begin{ex}{}{} Find $\sum_{n=2}^\infty \frac{(-1)^n}{2^n(n^2 - n)}$. 
+
+Well, this isn't a power series. However, this is the power series:
+
+$$\sum_{n = 2}^\infty \frac{z^n}{n(n-1)}$$
+
+\noin evaluated at $z = \frac{-1}{2}$. So, we need to investigate this power series.
+
+To begin, we need to figure out how this series was built. The division by $n$ and $n-1$ signals to me that this was built by taking primitives. The fact that we have two of them suggests we took the primitive of the primitive. To see this, let's reindex. Set $m = n - 2$. Then we get:
+
+$$\sum_{n = 2}^\infty \frac{z^n}{n(n-1)} = \sum_{m = 0}^\infty \frac{z^{m+2}}{(m+2)(m+1)}$$
+
+Now, this is the primitive of:
+
+$$\sum_{m = 0}^\infty \frac{z^{m+1}}{(m+1)}$$
+
+\noin which the previous example tells us is $-\Log(1-z)$. As such, this series is given by $F(z)$ where $F'(z) = -\Log(1-z)$. If you recall from first year calculus, the primitive for $\ln(x)$ is $x\ln(x) - x$. We try something similar:
+
+$$F(z) = (1-z)\Log(1-z) - (1-z) + C$$
+
+Does this function work? Let's double check:
+
+$$F'(z) = (1-z)\frac{-1}{1-z} - \Log(1-z) + 1 = -\Log(1-z)$$
+
+So this function is indeed a primitive for $-\Log(1-z)$. We just need to find $C$ to finish up. Well, $F(0) = -1 + C$. Also, $F(0) = \sum_{n = 2}^\infty \frac{0^n}{n(n-1)} = 0$. As such, $C = 1$ and $F(z) = (1-z)\Log(1-z)+ z$. And since we have taken primitives from a series with radius of convergence $R = 1$, we have that this is valid if $|z| < 1$. In particular at $z = \frac{-1}{2}$. We find:
+
+$$\sum_{n=2}^\infty \frac{(-1)^n}{2^n(n^2 - n)} = F\left(-\frac{1}{2}\right) = \frac{3}{2}\Log\left(\frac{3}{2}\right) - \frac{1}{2} = \frac{3}{2}\ln\left(\frac{3}{2}\right) - \frac{1}{2}$$
+\end{ex}
+
+
+\subsection{Removable Discontinuities}
+
+We've spent a great deal of time talking about power series, and developing their theory. What good does that do us? How can we use this theory? One way is to handle integrating around a removable discontinuity.
+
+To begin, we show that removable discontinuities can be "removed" to give an analytic function. Recall that an isolated singularity $z_0$ is called removable if $\lim_{z\rightarrow z_0} f(z)$ exists.
+
+\begin{thmbo}{}{remove}Suppose $f(z)$ is analytic on $D\setminus \{z_0\}$, has a removable discontinuity at $z_0\in D$, and that $\lim_{z\rightarrow z_0} f(z) = L$. Then the function $\tilde{f}(z) = \begin{cases} f(z), & z\ne z_0\\ L, & z= z_0\end{cases}$ is analytic on $D$.
+\end{thmbo}
+
+\begin{proof} Since $\tilde{f}(z) = f(z)$ on $D\setminus\{z_0\}$, we know that $\tilde{f}$ is differentiable on $D\setminus\{z_0\}$. As such, we only need to show that $\tilde{f}$ is differentiable at $z_0$. However, this is not immediately accessible from the definition of the derivative. We instead consider a new function. Define:
+
+$$k(z) = (z-z_0)\tilde{f}(z)$$
+
+Since $\tilde{f}$ is differentiable on $D\setminus\{z_0\}$, so is $k(z)$. At $z_0$ we have:
+
+$$k'(z_0) = \lim_{h\rightarrow 0} \frac{(z_0 + h - z_0)\tilde{f}(z_0 + h)}{h}= \lim_{h\rightarrow 0}\tilde{f}(z_0 + h) = \lim_{h\rightarrow 0}f(z_0 + h) = L$$
+
+As such, $k(z)$ is differentiable at $z_0$ as well. Since $k$ is analytic on $D$ and $z_0\in D$, $k$ has a power series expansion valid on $B_r(z_0)$ for some $r > 0$. In particular:
+
+$$k(z) = k(z_0) + k'(z_0)(z-z_0) + \sum_{n = 2}^\infty \frac{k^{(n)}(z_0)}{n!}(z-z_0)^n = L(z-z_0) + \sum_{n = 2}^\infty \frac{k^{(n)}(z_0)}{n!}(z-z_0)^n$$
+
+Now, for $z\ne z_0$, $\tilde{f}(z) = \frac{k(z)}{z-z_0} = L + \sum_{n = 2}^\infty \frac{k^{(n)}(z_0)}{n!}(z-z_0)^{n-1}$. However, note that when we evaluate this power series at $z_0$ we get $\tilde{f}(z_0) = L = L + \sum_{n = 2}^\infty \frac{k^{(n)}(z_0)}{n!}(z_0-z_0)^{n-1}$. So $\tilde{f}$ is given by this power series on $B_r(z_0)$!
+
+However, we know that power series with positive radii of convergence are analytic. Since $\tilde{f}$ is described by a power series with positive radius of convergence on $B_r(z_0)$, $\tilde{f}$ is analytic on $B_r(z_0)$ and hence is differentiable at $z_0$, completing the proof.
+\end{proof}
+
+How does this help us evaluate integrals though?
+
+\begin{thmbo}{}{} Suppose $f(z)$ is analytic on a domain $D\setminus\{z_0\}$ and has a removable discontinuity at $z_0\in D$. Suppose $\gamma$ is a piecewise smooth closed curve in $D\setminus\{z_0\}$ such that the inside of $\gamma$ is contained in $D$. Then:
+
+$$\int_{\gamma} f(z)dz = 0$$
+\end{thmbo}
+
+\begin{proof} By theorem \ref{thm:remove}, there exists a function $\tilde{f}$ analytic on $D$ such that $\tilde{f}(z) = f(z)$ for $z\ne z_0$. Now, since $\gamma$ is contained in $D\setminus\{z_0\}$, $\tilde{f} = f$ on $\gamma$. As such:
+
+$$\int_{\gamma} f(z)dz = \int_{\gamma} \tilde{f}(z)dz \stackrel{CIT}{=} 0$$
+\end{proof}
+
+
+Let's see this in action:
+
+\begin{ex}{}{} Find $\int_{|z| = 1} \frac{\sin(z)}{z}dz$.
+
+Note that $\sin(z) = z - \frac{z^3}{3!} + \frac{z^5}{5!} - ...$, and so for $z\ne 0$ we have:
+
+$$\frac{\sin(z)}{z} = 1 - \frac{z^2}{3!} + \frac{z^4}{5!} - ...$$
+
+As such, $\lim_{z\rightarrow 0} \frac{\sin(z)}{z} = 1$. So the singularity is removable. By our previous theorem:
+
+$$\int_{|z| = 1} \frac{\sin(z)}{z}dz = 0$$
+\end{ex}
+

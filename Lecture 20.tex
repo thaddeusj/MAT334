@@ -1,0 +1,75 @@
+\section{Tuesday, July 30}
+
+\todaybox{We begin our discussion of Laurent series, which we will use to integrate around essential singularities.}
+
+We've discussed integrating around removable singularities and around poles, and more or less fully discussed those. But what about essential singularities? To discuss those, we need to talk about Laurent series.
+
+\begin{defbo}{Laurent Series}{}\index{Laurent Series}\index{Series!Laurent series}
+A Laurent series centered at $z_0$ is a function $f(z)$ of the form:
+
+$$f(z) = \sum_{n = -\infty}^\infty a_n(z-z_0)^n = \sum_{n = 0}^\infty a_n(z-z_0)^n + \sum_{n = 1}^\infty \frac{a_{-n}}{(z-z_0)^n}$$
+
+The function is defined wherever both of these series exist, and is undefined whenever one diverges.
+\end{defbo}
+
+Before we get into how this idea is useful, let's start with an example:
+
+\begin{ex}{}{} Suppose $f(z) = \frac{1}{1-z}$. We know that on $|z| < 1$ that $f(z) = \sum_{n = 0}^\infty z^n$.
+
+What about for $|z| > 1$? Well, we can rewrite:
+
+$$f(z) = \frac{1}{z}\frac{1}{\frac{1}{z} - 1} = -\frac{1}{z}\frac{1}{1-\frac{1}{z} }$$
+
+Well, we know that $|z| > 1$, so $\left|\frac{1}{z}\right| < 1$. So, we can use the power series valid on $|z| < 1$ to get that:
+
+$$\frac{1}{1- \frac{1}{z}} = \sum_{n = 0}^\infty \left(\frac{1}{z}\right)^n$$
+
+All together, this gives us that:
+
+$$\frac{1}{1-z} = -\sum_{n = 1}^\infty \frac{1}{z^n}$$
+
+\end{ex}
+
+Alright, so let's tackle some theoretical concerns. In particular, we're interested in a few questions:
+
+\begin{itemize}
+\item Is there a radius of convergence type condition that let's us see when Laurent series converge?
+\item Are Laurent series analytic?
+\item Do analytic functions admit Laurent series?
+\end{itemize}
+
+Regarding the first question: we broke $\sum_{n = -\infty}^\infty a_n(z-z_0)^n$ into two sums. The sum with the positive powers:
+
+$$\sum_{n = 0}^\infty a_n(z-z_0)^n$$
+
+\noin is a power series. As such, it has a radius of convergence $R_1$ so that it converges on $B_{R_1}(z_0)$, and diverges when $|z-z_0| > R_1$.
+
+To investigate the negative terms, we'll make a change of variables. Let $w = \frac{1}{z-z_0}$. Then we have:
+
+$$\sum_{n = 1}^\infty \frac{a_{-n}}{(z-z_0)^n} = \sum_{n = 1}^\infty a_{-n}w^n$$
+
+\noin which is a power series in $w$. As such, it has a radius of convergence $R_2$ so that it converges when $|w| < R_2$ and diverges when $|w| > R_2$. As such, this series converges when $|z-z_0| > \frac{1}{R_2}$ and diverges when $|z-z_0| < \frac{1}{R_2}$.
+
+As such, there are two radii $r_1$ and $r_2$ such that the series converges when $r_1 < |z-z_0| < r_2$. Be careful: this does not automatically imply that $r_1 < r_2$. We need $r_1 < r_2$ for the series to converge anywhere, but we can easily find series such that $r_1 > r_2$, so that when the positive powers converge, the negative powers diverge.
+
+Regarding analyticity:
+
+\begin{thmbo}{}{} If $f(z) = \sum_{n = -\infty}^\infty a_n(z-z_0)^n$ converges when $R_1 < |z-z_0| < R_2$ and $R_1 < R_2$, then:
+
+$$f'(z) = \sum_{n = -\infty}^\infty na_n(z-z_0)^{n-1}$$
+
+\noin In particular, this new series also converges when $R_1 < |z-z_0| <R_2$.
+\end{thmbo}
+
+We won't be proving this. It's another theoretical result needing uniform convergence, like the fact that power series are analytic.
+
+Much more interesting is that analytic functions admit Laurent series, and that the coefficients of the Laurent series are integrals! 
+
+\begin{thmbo}{}{} Suppose $f(z)$ is analytic on $D = \{z\in\C|R_1 < |z-z_0| < R_2\}$. Let $r\in (R_1,R_2)$. Then on $D$, $f(z)$ is given by the Laurent series:
+
+$$f(z) = \sum_{n = -\infty}^\infty a_n(z-z_0)^n$$
+
+\noin where $a_n = \frac{1}{2\pi i}\int_{|z-z_0|=r} \frac{f(z)}{(z-z_0)^{n+1}}dz$.
+\end{thmbo}
+
+Proof will follow in the next lecture.

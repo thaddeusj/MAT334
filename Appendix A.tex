@@ -1,0 +1,203 @@
+\chapter{Technical Proofs}
+
+\section{The Leibniz Integral Rule}
+
+Our proof of the Generalized Cauchy Integral Formula used a clever trick: differentiating in terms of $z_0$ and then swapping the derivative and the integral. To do this, we needed the Leibniz Integral Rule. We prove this result:
+
+\begin{lem} Let $\gamma:[a,b]\rightarrow\C$ be a piecewise smooth curve. Suppose $f(w,z)$ is continuous in both $z$ and $w$ on some open set $R$ such that if $(w_0,z) \in R$ for some $z\in\C$ then $(w_0,\gamma(t))\in\R$ for all $t$. Further, suppose that $f_w(w,z)$ is continuous in both $z$ and $w$. Then:
+
+$$\frac{d}{dw} \int_{\gamma} f(w,z)dz = \int_{\gamma} \frac{\partial}{\partial w} f(w,z)dz$$
+\end{lem}
+
+\begin{proof}
+Define $F(w) = \int_\gamma f(w,z)dz$. We will show that $F$ is differentiable and that $F'(w_0) = \int_\gamma f_w(w_0,z)dz$.
+
+Let $(w_0,z)\in R$. Since $R$ is open, there exists $r>0$ such that $B_r(w_0)\times\{z\}\subset R$. By our assumptions on $R$, this means that for any $h\in B_r(0)$, $(w_0+h,\gamma(t))\in R$ for all $t$. As such, if we assume $0<|h|<r$, we may consider $F(w_0+h) - F(w_0)$.
+
+$$F(w_0+h) - F(w_0) = \int_\gamma f(w_0+h,z) - f(w_0,z)dz$$
+
+Now, define $\ell_h(s) = w_0 + sh$ for $s\in [0,1]$. Then $\ell_h(s) \in B_r(w_0)$ for all $s$, so $(\ell_h(s),\gamma(t))\in R$. As such, we may consider $\int_{\ell_h} f_w(w,z)dw$. This integral is defined, and further our $\C$FTC gives:
+
+$$\int_{\ell_h} f_w(w,z)dw = f(\ell_h(1),z) - f(\ell_h(0),z) = f(w_0+h,z) - f(w_0,z)$$
+
+As such, we have that:
+
+$$F(w_0+h) - F(w_0) = \int_\gamma\int_{\ell_h} f_w(w,z)dwdz$$
+
+Using the definition of the integral, we get:
+
+$$F(w_0+h) - F(w_0) = \int_a^b\int_0^1 hf_w(\ell_h(s),\gamma(t))\gamma'(t)dsdt$$
+
+Note that $\RE\left(hf_w(\ell_h(s),\gamma(t))\gamma'(t)\right)$ and $\IM\left(hf_w(\ell_h(s),\gamma(t))\gamma'(t)\right)$ are continuous. (At this point, we should note that we really should assume $\gamma'(t)$ is continuous. Actually, in our use to prove GCIF, we can assume $\gamma'(t)$ is continuous by integrating over a circle and then deforming to the whole curve.)
+
+As such, we can apply Fubini's theorem on the real and imaginary parts of this integral to swap the order of integration, giving:
+
+$$F(w_0+h) - F(w_0) = \int_0^1\int_a^b hf_w(\ell_h(s),\gamma(t))\gamma'(t)dtds = \int_{\ell_h}\int_\gamma f_w(w,z)dzdw$$
+
+We now consider the following limit:
+
+$$\lim_{h\rightarrow 0} \frac{F(w_0+h) - F(w_0)}{h} - \int_{\gamma} f_w(w_0,z)dz$$
+
+We wish to show this limit is $0$. We will do so from the definition. Let $\varepsilon > 0$. Since $w_0$ is constant, we have that $\int_{\ell_h}\int_{\gamma} f_w(w_0,z)dzdw = h\int_{\gamma} f_w(w_0,z)dz$. As such, we can rewrite this limit as:
+
+\begin{align*}\frac{F(w_0+h) - F(w_0)}{h} - \int_{\gamma} f_w(w_0,z)dz&= \lim_{h\rightarrow 0} \frac{F(w_0+h) - F(w_0) - h\int_\gamma f_w(w_0,z)dz}{h}\\
+&=  \frac{F(w_0+h) - F(w_0) - \int_{\ell_h}\int_\gamma f_w(w_0,z)dzdw}{h}\\
+&=  \frac{\int_{\ell_h}\int_\gamma f_w(w,z)dz - \int_{\ell_h}\int_\gamma f_w(w_0,z)dzdw}{h}\\
+&=  \frac{\int_{\ell_h}\int_\gamma f_w(w,z) - f_w(w_0,z)dzdw}{h}
+\end{align*}
+
+We now estimate using ML-estimation. Since $f_w$ is continuous as a function of $w$, there exists $\delta > 0$ such that if $|w-w_0| < \delta$, then $|f_w(w,z) - f_w(w_0,z)| < \frac{\varepsilon}{\mathrm{Length}(\gamma)+1}$. Note also that the length of $\ell_h$ is $|h|$. Then we estimate:
+
+$$\left| \frac{\int_{\ell_h}\int_\gamma f_w(w,z) - f_w(w_0,z)dzdw}{h} \right| \le \frac{1}{|h|}|h| \max\left\{\left|\int_\gamma f_w(\ell_h(s),z) - f_w(w_0,z)dz\right|: s\in[0,1]\right\}$$
+
+However, using ML estimate on this inner integral gives:
+
+$$\left|\int_\gamma f_w(\ell_h(s),z) - f_w(w_0,z)dz\right| \le \mathrm{Length(\gamma)}\frac{\varepsilon}{\mathrm{Length}(\gamma)+1	}$$
+
+So, all together, we get that:
+
+$$\left| \frac{\int_{\ell_h}\int_\gamma f_w(w,z) - f_w(w_0,z)dzdw}{h} \right| < \varepsilon$$
+
+\noindent whenever $0<|h| < \delta$. As such, $\lim_{h\rightarrow 0} \frac{F(w_0+h) - F(w_0)}{h} - \int_{\gamma} f_w(w_0,z)dz = 0$ by definition. So $F'(w_0) = \int_\gamma f_w(w_0,z)dz$, as desired.
+
+
+
+\end{proof}
+
+
+
+
+\section{The Extreme Value Theorem}\label{subsec:FTA}
+
+To prove the Fundamental Theorem of Algebra, we used some technical results. In this subsection, we provide a proof. To begin, we need a couple of definitions.
+
+\begin{defbo}{Closed Set}{closed}\index{Topology!closed set}
+A set $K\subset \C$ is closed if $K^{c} = \{z\in \C|z\not\in K\}$ is open.\end{defbo}
+
+\begin{ex}{Closed Balls}{} The closed ball $K = \{z\in \C| |z-z_0| \le R\}$ is closed.
+
+Consider $w\not\in K$. Then $|w-z_0| > R$. Let $\varepsilon > 0$ such that $R + \varepsilon < |w- z_0|$. We claim that $B_{\varepsilon}(w) \subset K^c$. To see this, let $z\in B_{\varepsilon}(w)$. Then:
+
+$$|z-z_0| = |(w-z) - (w-z_0)| \ge ||w-z| -|w-z_0|| = |w-z_0| - \varepsilon > R$$
+
+So $z\not\in K$. As such, $B_{\varepsilon}(w) \subset K^c$.
+
+Therefore, we have shown that for any $w\in K^c$, there is a ball $B_r(w)$ which is contained in $K^c$. So $K^c$ is open, and therefore $K$ is closed.
+\end{ex}
+
+
+\begin{defbo}{Cauchy Sequence}{} A sequence $z_1,\dots,z_n,\dots$ is called Cauchy if for all $\varepsilon > 0$, there exists some $N \in \N$ such that if $n,m > N$, then $|z_n - z_m| < \varepsilon$.
+\end{defbo}
+
+It is a neat fact, derived from the fact that $\C$ is topologically the same as $\R^2$, that $\C$ is complete: every Cauchy sequence in $\C$ converges.
+
+
+\begin{thmbo}{Extreme Value Theorem}{EVT}\index{Extreme Value Theorem}
+Suppose $f(z)$ is continuous on $\C$. Let $K\subset \C$ be closed and bounded. Then there exists $M\in \R$ such that $|f(z)| \le M$ for all $z\in K$. I.e., $f(z)$ is bounded on $K$.
+
+\end{thmbo}
+
+\begin{proof}
+Suppose $f(z)$ is not bounded on $K$. I.e., for any $N\in \C$, there exists $z\in K$ such that $|f(z)| \ge N$.
+
+Define $K_{n} = \{z\in \C| |f(z)| > 2^n\}$. We know that $K_{n}$ is non-empty for each $n$. For each $n$, choose $z_n\in K_n$.
+
+Since $K$ is bounded, there exists some $a < b$ and $c < d$ so that $K\subset D = \{z\in \C| a \le \RE(z) \le b, c \le \IM(z) \le d\}$.
+
+Now, there are an infinite number of $z_n$. (Since for any $z\in \C$ there exists $m$ with $|f(z)| < 2^m$, so for any $n$ there exists $m$ such that $z_n \ne z_j$ for all $j > m$.) 
+
+We cut $D$ into four regions: 
+$$\{z\in \C| a \le \RE(z) \le \frac{a+b}{2}, c \le \IM(z) \le \frac{c+d}{2}\}$$
+$$\{z\in \C| a \le \RE(z) \le \frac{a+b}{2}, \frac{c+d}{2} \le \IM(z) \le d\}$$
+$$\{z\in \C| \frac{a+b}{2} \le \RE(z) \le b, c \le \IM(z) \le \frac{c+d}{2}\}$$
+$$\{z\in \C| \frac{a+b}{2} \le \RE(z) \le b, \frac{c+d}{2} \le \IM(z) \le d\}$$
+
+Since there are an infinite number of $z_n$ and only four regions, one of these four rectangles contains an infinite number of the $z_n$. Set $D_1$ to be that region.
+
+Repeat this procedure with $D_1$ to find another set $D_2 \subset D_1$ containing an infinite number of the $z_n$. Repeat to find $D_j$ such that: $D_j \subset D_{j-1}$ and $D_j$ contains an infinite number of these $z_n$.
+
+From each $D_j$, choose one of the $z_n$ in that $D_j \cap K_j$, which we will call $w_j$. This intersection is non-empty since $D_j$ contains an infinite number of the $z_n$, and only finitely many of that $z_n$ are not in $K_j$.
+
+I claim that the $w_j$ converge. To prove this, we will need to use a fact about $\C$: $\C$ is a complete metric space. This means that every Cauchy sequence in $\C$ converges. So, if we can prove that the sequence $w_1,w_2,\dots$ is Cauchy, then we know it converges.
+
+This turns out to be easy. Let $\varepsilon > 0$. In a rectangle with side lengths $r,s$, the greatest distance between any two points in the rectangle is given by considering the distance between two opposite vertices. This is $\sqrt{r^2 + s^2}$. By our construction, the rectangle $D_j$ has side lengths $2^{-j}(b-a)$ and $2^{-j}(d-c)$. Therefore, choose $N$ such that $2^{-N}\sqrt{(b-a)^2 + (d-c)^2} < \varepsilon$.
+
+Then for any $n,m > N$, we have that $w_n \in D_n \subset D_N$ and $w_m\in D_m \subset D_N$. As such:
+
+$$|w_n - w_m| \le  2^{-N}\sqrt{(b-a)^2 + (d-c)^2} < \varepsilon$$
+
+So the sequence is Cauchy, and hence converges to some $w$. Furthermore, since $K$ is closed, we know that $w\in K$.
+
+To finish up, we use that $f(z)$ is continuous. This tells us that:
+
+$$|f(w)| = |f(\lim_{j\rightarrow \infty} w_j)| = |\lim_{j\rightarrow \infty} f(w_j)| = \lim_{j\rightarrow \infty} |f(w_j)|$$
+
+However, we know that for any $N \in \N$, if $j > N$ then $w_j\in D_N \cap K_N$, and so $|f(w_j)| > 2^N$. As such, $|f(w)| = \lim_{j\rightarrow \infty} |f(w_j)| = \infty$. However, this is not possible since $f$ is continuous at $w$. Contradiction.
+
+Therefore, $f$ is bounded on $K$.
+
+\end{proof}
+
+
+\section{Series}
+
+\begin{thmbo}{}{absConv}Absolutely convergent series converge.\end{thmbo}
+
+\begin{proof} Suppose $\sum_{n = k}^\infty a_n$ converges absolutely. To show that it converges, we need to show that $(S_n)_{n=k}^\infty$ converges. As mentioned in subsection \ref{subsec:FTA} of these appendices, this is equivalent to showing that the sequence is Cauchy.
+
+I.e., we need to show that we can force $|S_n - S_m| = |\sum_{j = m+1}^n a_j|$ to be very small.
+
+Let $\varepsilon > 0$. Since $\sum_{n = k}^\infty |a_n|$ converges, there exists $N\in \N$ such that $n > m > N$ implies that $|T_n - T_m| < \varepsilon$ where $T_n = \sum_{j = k}^n |a_n|$.
+
+Now, $|T_n - T_m| = |\sum_{j = m+1}^n |a_j|| = \sum_{j = m+1}^n |a_j|$.
+
+By the triangle inequality:
+
+$$|\sum_{j = m+1}^n a_n| \le \sum_{j = m+1}^n |a_j|$$
+
+And so $|S_n - S_m| \le |T_n - T_m|$. Therefore, if $n,m > N$, then $|S_n - S_m| \le |T_n - T_m| < \varepsilon$. This proves that the sequence $(S_n)_{n=k}^\infty$ is Cauchy, and therefore converges as well.
+\end{proof}
+
+For some of our theorem on analytic functions, we need to discuss the notion of uniformly convergent series.
+
+\begin{defbo}{Uniform Convergence}{} Suppose $(f_n)_{n = k}^\infty$ is a sequence of functions, defined on some set $S$. We say that $f_n$ converges uniformly to $f$ on $S$ if:
+
+$$\forall \varepsilon > 0, \exists N \in \N \text{ such that } n > N \implies |f_n(z) - f(z)| < \varepsilon \forall z\in S$$
+
+A uniformly convergent series is a series whose partial sums converge uniformly.
+\end{defbo}
+
+Notice the order of the quantifiers here. This is saying that $N$ doesn't depend on $z$. So not only does the series converge to $f$ at each point, but the series converges at roughly the same speed. More precisely, there's some lower bound to how fast the series converges at each point.
+
+Why is this important? Well, it let's me get away with swapping some integrals and limits. In particular, it lets us do the following:
+
+\begin{thmbo}{}{uniform}Suppose $f_n$ are all continuous on the piecewise smooth curve $\gamma$ and $f_n \rightarrow f$ uniformly. Then $\lim_{n\rightarrow \infty} \int_{\gamma} f_n(z)dz = \int_\gamma f(z)dz$.
+\end{thmbo}
+
+\begin{proof} Since $\left|\int_{\gamma} f_n(z)dz - \int_{\gamma} f(z)dz\right| \le \int_{\gamma} |f_n(z) - f(z)|dz$, we prove that:
+
+$$\lim_{n\rightarrow \infty} \int_{\gamma} |f_n(z) - f(z)|dz = 0$$
+
+Let $\varepsilon > 0$. Then there exists $N \in \N$ such that $n\ge N$ implies that $|f_n(z) - f(z)| \le \frac{\varepsilon}{L(\gamma)}$, where $L(\gamma)$ is the length of $\gamma$.
+
+Now, by M-L estimation, $\int_{\gamma} |f_n(z) - f(z)|dz \le \frac{\varepsilon}{L(\gamma)}L(\gamma) = \varepsilon$.
+
+So, we have shown that $\forall\varepsilon > 0$ there exists some $N\in \N$ such that $n > N$ implies $\int_{\gamma} |f_n(z)- f(z)|dz = \left| \int_{\gamma} |f_n(z) - f(z)| dz - 0 \right| < \varepsilon$. As such, $\lim_{n \rightarrow \infty} \int_{\gamma} |f_n(z) - f(z)|dz = 0$.
+
+By the squeeze theorem, $\lim_{n \rightarrow \infty} \left|\int_{\gamma} f_n(z)dz - \int_{\gamma} f(z)dz\right| = 0$, and so $\lim_{n\rightarrow \infty} \int_{\gamma} f_n(z)dz = \int_{\gamma} f(z)dz$.
+\end{proof}
+
+All that remains for our purposes is to show that $\sum_{n = 0}^\infty z^n$ converges uniformly on $|z| \le R$ for any $R < 1$.
+
+\begin{thmbo}{}{1/1-z} Let $0 \le R < 1$. Then $\sum_{n = 0}^\infty z^n$ converges uniformly to $\frac{1}{1-z}$ on $|z| \le R$.\end{thmbo}
+
+\begin{proof} Let $D = \{z\in\C||z| \le R\}$. Let $S_n(z) = \sum_{j = 0}^n z^j$. Recall that $S_n(z) = \frac{1 - z^{n+1}}{1-z}$. So, to show that the sum converges uniformly, we need to show that $\frac{1- z^{n+1}}{1-z}$ converges uniformly to $\frac{1}{1-z}$.
+
+Notice that $|S_n(z) - \frac{1}{1-z}| = \frac{z^{n+1}}{1-z}$. Now, since $|z| \le R < 1$, we have that $|1 - z| \ge 1 - R > 0$. As such, $\frac{z^{n+1}}{1-z} \le \frac{R^{n+1}}{1 - R}$.
+
+Let $\varepsilon > 0$. Since $\lim_{n\rightarrow \infty} \frac{R^{n+1}}{1-R} = 0$, there exists $N\in \N$ such that if $n > N$, then $\frac{R^{n+1}}{1-R} < \varepsilon$.
+
+However, this also gives that $|S_n(z) - \frac{1}{1-z}| \le \frac{R^{n+1}}{1-R} < \varepsilon$ for all $z\in D$. As such, the series converges uniformly to $\frac{1}{1-z}$ on $D$.
+\end{proof}
+
+In actuality, we need that $\sum_{n = 0}^\infty f(z) \frac{(w-z_0)^n}{(z-z_0)^{n+1}}$ where $|w-z_0| < |z-z_0|$ converges uniformly to $\frac{f(z)}{z-w}$ on a simple, closed curve $\gamma$. Since $f(z)$ is bounded on the curve, this is a simple modification of the above argument.

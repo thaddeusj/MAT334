@@ -1,0 +1,250 @@
+\section{Thursday, June 6}
+
+\todaybox{We'll finish up our discussion of harmonic functions. After that, we're going to begin talking about integration. That is going to be the topic of the majority of the rest of the course.}
+
+Last class, we ended on an example of finding a harmonic function $v(x,y)$, given another harmonic function $u(x,y)$, so that $f = u + iv$ is analytic. Finding this $v(x,y)$ boils down to solving a system of partial differential equations. However, the procedure isn't unreasonable. Such $u$ and $v$ are called harmonic conjugates:
+
+\begin{defbo}{Harmonic Conjugates}{harmconj}\index{Harmonic Conjugates}Let $u(x,y)$ be a harmonic function. We say that $v$ is a harmonic conjugate for $u$ if $f(z) = u + iv$ is holomorphic.
+\end{defbo}
+
+\begin{ex}{}{} Why do we need this notion? Isn't it true that if $u,v$ are harmonic, then $u+iv$ is holomorphic?
+
+Well, no. Consider $u(x,y) = x$ and $v(x,y) = -y$. Then these are both harmonic. However, $f(z) = x-iy = \OL{z}$, which we know is nowhere differentiable.
+
+So, it is not true that if you take any two arbitrary harmonic functions $u,v$, that $u+iv$ is holomorphic. This is something very special.
+\end{ex}
+
+In light of this example, it's natural to ask whether or not harmonic functions even have a harmonic conjugate. The answer is, luckily, yes.	
+
+\begin{thmbo}{}{harmconj} If $u$ is harmonic on an open set $U$, then there exists a harmonic conjugate $v$ for $u$.
+\end{thmbo}
+
+Proving this amounts to solving the system of differential equations:
+$$v_y = u_x$$
+$$v_x = -u_y$$
+
+Since then $u,v$ satisfy Cauchy-Riemann and $f = u + iv$ will be holomorphic. (We are guaranteed that $u,v$ and their partials are continuous since they are harmonic.) We know $u_x$ and $-u_y$, so we just need to know how to solve the system $v_x = f$ and $v_y = g$. The theoretical idea is to integrate. This is not a super important fact, so we'll eschew giving a precise proof.
+
+\subsection{Line Integrals - Motivation}
+
+We are now ready to begin talking about the integration side of complex calculus. Since complex functions can be thought of as functions of two variables, we have a couple of options for integrating: surface integrals, such as $\int_{U} f(z)dxdy$ where we integrate over the open set $U$; and line integrals $\int_{\gamma} f(z)dz$ where we integrate over a curve $\gamma$ in $\C$.
+
+It turns out that surface integrals hold little interest. Line integrals are where the magic happens. Here are some facts we're going to be able to show using complex line integrals:
+
+\begin{itemize}
+\item Every holomorphic function is infinitely differentiable.
+\item Every holomorphic function is analytic, meaning it has a power series expansion around any point in the domain.
+\item Liouville's theorem states that any bounded entire function is constant.
+\item Let $a\in (0,1)$. Then 
+$$\int_0^\infty \frac{x^{a - 1}}{1 + x}dx = \frac{\pi}{\sin(\pi a)}$$
+\end{itemize}
+
+Liouville's theorem is a neat theoretical tool, which will give us some very powerful theorems. It's going to allow us to prove the Fundamental Theorem of Algebra (every non-constant complex polynomial has roots). Why might the second fact be interesting?
+
+Well, it's not the second fact by itself that's interesting. After all, it's a seemingly random integral, (Indeed, it only holds interest to me because it appeared on my comprehensive exam for complex analysis!) What's interesting is that we can use complex line integrals to find real improper integrals.
+
+\subsection{Curves in $\C$}
+
+Before we can begin discussing line integrals, we should give ourselves a quick refresher on curves. After all, we need to integrate over {\it something}.
+
+\begin{defbo}{Curves}{curve}\index{Curve}A {\bf curve} in $\C$ is a function $\gamma:[a,b] \rightarrow \C$, for some real $a < b$, such that $\RE(\gamma)$ and $\IM(\gamma)$ are continuous.
+
+\vspace{5pt}
+
+Further, such a curve is called {\bf smooth} if $\RE(\gamma)$ and $\IM(\gamma)$ are differentiable. It is called {\bf piecewise smooth} if they are differentiable except at finitely many places. In this case, $\gamma' = [\RE(\gamma)]' + [\IM(\gamma)]'$.
+
+\vspace{5pt}
+
+Paths are a special case of curves, where $a = 0$ and $b = 1$.
+
+\vspace{5pt}
+
+The point $\gamma(a)$ is called the {\bf start} of the curve, and $\gamma(b)$ is the {\bf end} of the curve. $\gamma$ is called {\bf closed} if it starts and ends at the same point.
+\end{defbo}
+
+We are going to be using a lot of different paths throughout this course. We present a few common ones:
+
+\begin{ex}{}{} Let $z_0,z_1\in \C$. The line segment from $z_0$ to $z_1$ can be described by the curve $\gamma:[0,1]\rightarrow \C$ with:
+$$\gamma(t) = tz_1 + (1-t)z_0 = z_0 + t(z_1 - z_0)$$
+
+So, for example, the line segment from $1 - i$ to $5 + 7i$ is given by the curve $\gamma(t) = 1 - i + t(4 + 8i) = (1+4t) + (-1 + 8t)i$.
+\end{ex}
+
+\begin{ex}{}{} Let $z_0 \in \C$ and $r\ge 0$. Fix an angle $\theta$. Then travelling along the circle of radius $r$ centered at $z_0$, starting at $\theta$ and travelling once counterclockwise, is done by the curve:
+$$\gamma(t) = z_0 + re^{i(\theta + t)}$$
+
+\noin where $t\in [0,2\pi]$.
+
+If we travel clockwise instead, then the formula is $\gamma(t) = z_0 + re^{i(\theta - t)}$.
+
+We will usually start at $\theta= 0$.
+
+Also, notice that these are both closed curves.
+\end{ex}
+
+There are a few interesting ways to manipulate and combine curves. These will pop up, so let's give a brief description:
+
+\begin{defbo}{$-\gamma$}{} Let $\gamma:[a,b]\rightarrow \C$ be a curve in $\C$. Then we can define the curve $-\gamma$ which traverses $\gamma$ backwards at the same speed. We define $-\gamma:[a,b] \rightarrow \C$ by:
+$$(-\gamma)(t) = \gamma(a + b - t)$$
+\end{defbo}
+
+Why $a + b - t$? When looking at $\gamma$, the variable $t$ travels along the interval $[a,b]$ from $a$ to $b$ linearly. Going backwards, we want a linear function $s:[a,b]\rightarrow [a,b]$ so that $s(a) = b$ and $s(b) = a$. I.e., go from $b$ to $a$ linearly. The function $s(t) = a + b - t$ does this. It's linear, $s(a) = a + b - a = b$ and $s(b) = a + b - b = a$.
+
+We can also combine curves, by following one and then the other.
+
+\begin{defbo}{$\gamma_1 + \gamma_2$}{} Suppose $\gamma_1:[a,b] \rightarrow \C$ and $\gamma_2:[c,d] \rightarrow \C$ are two curves such that $\gamma_1(b) = \gamma_2(c)$. I.e., the second curve starts where the first one ends.
+
+Then $\gamma_1 + \gamma_2$ is the curve that first follows $\gamma_1$ and then follows $\gamma_2$. We define $\gamma_1 + \gamma_2:[a, b + (d-c)]\rightarrow \C$ by:
+$$(\gamma_1 + \gamma_2)(t) = \begin{cases} \gamma_1(t), & t\in [a,b]\\
+\gamma_2(c -b + t), & t\in [b,b + (d-c)]\end{cases}$$
+\end{defbo}
+
+The first part simply says to follow $\gamma_1$ until the end. The second part, however, looks confusing. Why $c-b + t$? Well, keep in mind that when we are done travelling $\gamma_1$, we are at $t = b$. To start $\gamma_2$, we need the input of $\gamma_2$ to be $c$. The formula $c-b + t$ gives $(\gamma_1 + \gamma_2)(b) = \gamma_2(c - b + b) = \gamma_2(c)$, like we want.
+
+And then we end at $b + (d-c)$ since it gives $(\gamma_1 + \gamma_2)(b + (d-c)) = \gamma_2(c - b + (b +(d-c)) = \gamma_2(d)$, also as desired.
+
+These are mostly academic formulas. They'll let us prove some things, and that's their only real use. In fact, we are very quickly going to prove a couple of theorems that render these formulas totally useless.
+
+Lastly, we need to quickly talk a bit about closed curves. As it turns out, here's some notion of "direction" when you travel along a closed curve, provided that it doesn't self intersect. 
+
+\begin{defbo}{Simple Closed Curve}{}\index{Curve!simple closed}
+A closed curve is called simple if it does not self-intersect. This means that $\gamma(t) = \gamma(s)$ occurs only when $t = s$ or at the start and end.
+\end{defbo}
+
+\begin{thmbo}{Jordan Curve Theorem}{} Let $\gamma$ be a simple closed curve in $\C$. Then $\gamma$ divides $\C$ into two regions: the {\bf inside} and {\bf outside} of $\gamma$. We shall denote these $\mathrm{in}(\gamma)$ and $\mathrm{out}(\gamma)$.
+
+The exterior of $\gamma$ consists of all points $z\in \C$ such that there exists a path from $z$ to $\infty$ that does not cross $\gamma$. The interior is $\C\setminus (\mathrm{out}(\gamma) \cup \{\gamma(t)\})$.
+\end{thmbo}
+
+Just to be clear, when we say that there is a path from $z$ to $\infty$, we mean there is a continuous function $\sigma:[a,\infty)\rightarrow \C$ so that $\sigma(a) = z$ and $\lim_{t\rightarrow \infty} |\sigma(t)| = \infty$. I.e., the path gets arbitrarily far from the origin.
+
+So, with that understanding, intuitively the outside is the set of all points that can "escape to $\infty$" without passing $\gamma$. The inside is all points that cannot escape to $\infty$ and which are not on $\gamma$.
+
+The Jordan curve theorem is notoriously difficult to prove. For such a simple statement, you end up needing a lot of heavy machinery. (The first place I saw a proof was in graduate differential topology, to give you an idea of how hard it is to prove.) So we're naturally going to run far, far away.
+
+However, this idea of inside and outside will let us define our notion of direction.
+
+\begin{defbo}{Orientation of a Simple Closed Curve}{orientation}\index{Curve!orientation}Let $\gamma$ be a simple, closed curve. Then $\gamma$ is {\bf positively oriented} if the inside of $\gamma$ is on your left as you traverse $\gamma$. If the inside of $\gamma$ remains on your right, the curve is {\bf negatively oriented}.
+\end{defbo}
+
+This is a visual definition. Orientation is something you need to be able to understand from a picture. There is a more formal definition, but it isn't terribly useful for us.
+
+\begin{ex}{}{} The curve which follows the triangle from $0$ to $1$ to $i$ and back to $0$ is positively oriented.
+
+Circles travelled counterclockwise are positively oriented. Circles travelled clockwise are negatively oriented.
+
+\end{ex}
+
+\begin{ex}{}{} If $\gamma$ is positively oriented, then $-\gamma$ is negatively oriented. If you travel the curve backwards, the inside of $\gamma$ now appears on the opposite side.
+\end{ex}
+
+\subsection{Line Integrals}
+
+Now that we've talked a whole bunch about curves, let's talk about how to compute a complex line integral.
+
+\begin{defbo}{Line integrals in $\C$}{}\index{Line Integral}\index{Integral}Let $\gamma:[a,b]\rightarrow \C$ be a smooth curve in $\C$ and $f = u + iv$ be a complex function whose domain contains $\gamma$. Let $\gamma(t) = a(t) + ib(t)$. Then we define the line integral of $f$ over $\gamma$ by:
+\begin{align*}\int_{\gamma} f(z)dz &= \int_{a}^b f(\gamma(t))\gamma'(t)dt\\
+&= \int_{a}^{b} (u(\gamma(t)) + iv(\gamma(t)))(a'(t) + ib'(t))dt\\
+&= \int_{a}^b u(a(t),b(t))a'(t) - v(a(t),b(t))b'(t)dt + i \int_{a}^b v(a(t),b(t))a'(t) + u(a(t),b(t))b'(t)dt
+\end{align*}
+\end{defbo}
+
+Before we develop all sorts of neat techniques, let's get our hands dirty and actually compute a line integral.
+
+\begin{ex}{}{} Let $\gamma$ be the line segment from $2 - i$ to $-3 + 2i$. Find $\int_\gamma e^zdz$.
+
+We have $\gamma(t) = (2-i) + t((-3 + 2i) - (2-i)) = (	2-i) + t(-5 + 3i) = (2 - 5t) + i(-1 + 3t)$, where $t$ goes from $0$ to $1$. As such, $\gamma'(t) = -5 + 3i$.
+\begin{align*}\int_{\gamma} e^z dz &= \int_{0}^1 e^{(2-5t) + i(-1 + 3t)}(-5 + 3i) dt\\
+&= \int_{0}^1 (e^{2-5t}\cos(3t - 1) + ie^{2-5t}\sin(3t-1))(-5 + 3i)dt\\
+&= \int_0^1 -5e^{2-5t}\cos(3t - 1) - 3e^{2-5t}\sin(3t-1) dt + i\int_0^1 3e^{2-5t}\cos(3t - 1)  - 5e^{2-5t}\sin(3t-1) dt
+\end{align*}
+
+And this has now become a particularly nasty first year calculus integral. Integrating by parts a couple of times gives an answer. But there must be a better way?
+\end{ex}
+
+Rather than continuing to bash our heads against this, let's try to find a smarter way to handle this integral. After all, we would expect integrating a simple function like $e^z$ to be simple. If we were to integrate $\int_{a}^b e^xdx$, we know by the Fundamental Theorem of Calculus that this is $e^b - e^a$. Is there a complex version of this?
+
+\begin{thmbo}{The Complex Fundamental Theorem of Calculus}{cFTC}\index{Fundamental Theorem of Calculus}\index{$\C$FTC}
+Suppose $F(z)$ is an analytic function on an open set $U$, and $\gamma:[a,b]\rightarrow \C$ is a smooth curve contained in $U$. If $F'(z) = f(z)$, then:
+$$\int_{\gamma} f(z)dz = F(\gamma(b)) - F(\gamma(a))$$
+\end{thmbo}
+
+\begin{proof} The key tool here is the chain rule: $F'(\gamma(t))\gamma'(t) = (F\circ \gamma)'(t)$. This is a slightly different chain rule that we've seen so far, so let's give a quick proof:
+
+Let $F(z) = u(x,y) + iv(x,y)$ and $\gamma(t) = a(t) + ib(t)$. Then $F(\gamma(t)) = u(a(t),b(t)) + iv(a(t),b(t))$. Now, $F(\gamma(t))$ is a curve in $\C$, so we know that its derivative is:
+$$(F\circ \gamma)(t) = \frac{d\, u(a(t),b(t))}{d\,t} +i \frac{d\, v(a(t),b(t))}{d\,t}$$
+
+Now, by the chain rule for functions from $\R$ to $\R^2$, we have:
+$$\frac{d\, u(a(t),b(t))}{d\,t} = \frac{\partial u(a(t),b(t))}{\partial x}a'(t) + \frac{\partial u(a(t),b(t))}{\partial y}b'(t)$$
+
+With this, we now compute the derivative of $F\circ \gamma$:
+$$(F\circ \gamma)'(t) = u_x(a(t),b(t))a'(t) + u_y(a(t),b(t))b'(t) + i\left(v_x(a(t),b(t))a'(t) + v_y(a(t),b(t))b'(t)\right)$$
+
+On the other hand, we know that $F' = u_x + iv_x$, and that $u_x = v_y$ and $u_y = -v_x$ by the Cauchy-Riemann equations. As such:
+\begin{align*}F'(\gamma(t))\gamma'(t) &= (u_x(a(t),b(t)) + iv_x(a(t),b(t)))(a'(t) + ib'(t))\\
+&= u_x(a(t),b(t))a'(t) - v_x (a(t),b(t))b'(t) + i\left(v_x(a(t),b(t))a'(t) + u_x(a(t),b(t))b'(t)\right)\\
+&= u_x(a(t),b(t))a'(t) + u_y(a(t),b(t))b'(t) + i\left(v_x(a(t),b(t))a'(t) + v_y(a(t),b(t))b'(t)\right)\\
+&= (F\circ \gamma)'(t)
+\end{align*}
+
+With this intermediate result in hand, we can now tackle what we wish to prove. We have:
+$$\int_{\gamma} f(z)dz = \int_{a}^b F'(\gamma(t))\gamma'(t)dt = \int_a^b (F\circ \gamma)'(t)dt$$
+
+Let $(F\circ \gamma)(t) = x(t) + iy(t)$. So then $(F\circ \gamma)'(t) = x'(t) + iy'(t)$. As such:
+$$\int_{\gamma} f(z)dz = \int_{a}^b x'(t)dt + i \int_{a}^b y'(t)dt$$
+
+However, since $x$ and $y$ are real functions, we can now use the Fundamental Theorem of Calculus over $\R$ to get:
+\begin{align*} \int_\gamma f(z)dz = x(b) - x(a) + i(y(b) - y(a))\\
+&= (x + iy)(b) - (x + iy)(a)\\
+&= (F\circ \gamma)(b) - (F\circ \gamma)(a)
+\end{align*}
+
+\noin as desired.
+\end{proof}
+
+\begin{ex}{}{} Find $\int_\gamma e^zdz$ where $\gamma$ is the line segment from $2 - i$ to $-3 + 2i$.
+
+Well, we know that if $f(z) = e^z$, then $f'(z) = e^z = f(z)$. So, we have that:
+$$\int_{\gamma} e^zdz = e^{\text{end of }\gamma} - e^{\text{start of }\gamma} = e^{-3 + 2i} - e^{2 - i}$$
+\end{ex}
+
+Unlike over $\R$, we don't call a function $F(z)$ so that $F'(z) = f(z)$ an antiderivative. The terminology in $\C$ is a primitive.
+
+\begin{defbo}{Primitive}{primitive}\index{Primitive}Let $f(z)$ be a function defined on an open set $U \subset \C$. We say that an analytic function $F(z)$ is a {\bf primitive} for $f(z)$ on $U$ if $F'(z) = f(z)$ for all $z\in U$.
+\end{defbo}
+
+At this point, we could reduce this to a course in finding primitives. However, as you've seen in first year, that's a wholly unsatisfying endeavour. Also, it ignores the uniquely complex characteristics from our setting.
+
+\subsection{Green's Theorem and the Cauchy Integral Theorem}
+
+As a quick refresher from multivariable calculus, let's remind ourselves what Green's theorem says.
+
+\begin{thmbo}{Green's Theorem}{greens}\index{Green's Theorem}Let $\gamma$ be a positively oriented, piecewise smooth, simple, closed curve in $\R^2$. Suppose that $f,g:U\rightarrow \R$ where $U$ is an open set containing both $\gamma$ and the inside $\mathrm{in}(\gamma)$. If $f$ and $g$ have continuous partials, then:
+$$\int_{\gamma} fdx + gdy = \iint_{\mathrm{in}(\gamma)} (g_x - f_y)dxdy$$
+\end{thmbo}
+
+We will not be proving this. We will, however, gladly use it. Before we use it, let's unpack the line integral. Let $\gamma:[a,b] \rightarrow \R^2$ be given by $\gamma(t) = (x(t),y(t))$. Then:
+$$\int_{\gamma} fdx + gdy = \int_a^b f(x(t),y(t))x'(t) + g(x(t),y(t))y'(t)dt$$
+
+We can use this to prove a very useful theorem in $\C$. However, it is going to require us to make an assumption. We are going to assume for the remainder of the course that if $f(z)$ is holomorphic on an open set $U$, then $u_x,u_y,v_x,$ and $v_y$ are all continuous on $U$. (It is my intent to revisit this later and provide a proof, as an appendix.)
+
+With this assumption, we can prove:
+
+\begin{thmbo}{Cauchy's Integral Theorem (Version 1)}{cit1}\index{Cauchy's Integral Theorem!version 1}Suppose $f$ is holomorphic on an open set $U$, and $\gamma$ is a piecewise smooth, positively oriented, simple, closed curve in $U$, such that $\mathrm{in}(\gamma)\subset U$ as well. Then:
+$$\int_{\gamma}f(z)dz = 0$$
+\end{thmbo}
+
+\begin{proof} This turns out to be a quick application of Green's theorem. We have:
+$$\int_{\gamma} f(z)dz = \int_{a}^b u(a(t),b(t))a'(t) - v(a(t),b(t))b'(t)dt + i \int_{a}^b v(a(t),b(t))a'(t) + u(a(t),b(t))b'(t)dt$$
+
+Notice that $\int_a^b u(a(t),b(t))a'(t) - v(a(t),b(t))b'(t)dt = \int_{\gamma} udx - vdy$. So by Green's theorem, this becomes:
+$$\int_a^b u(a(t),b(t))a'(t) - v(a(t),b(t))b'(t)dt = \int_{\gamma} udx - vdy = \iint_{\mathrm{in}(\gamma)} (-v_x) - u_y dxdy$$
+
+However, since $f$ is holomorphic, we have that $-v_x = u_y$. So:
+$$\int_a^b u(a(t),b(t))a'(t) - v(a(t),b(t))b'(t)dt = \iint_{\mathrm{in}(\gamma)} u_y - u_y dxdy = 0$$
+
+Similarly, we also find that:
+$$\int_{a}^b v(a(t),b(t))a'(t) + u(a(t),b(t))b'(t)dt = \iint_{\mathrm{in}(\gamma)} u_x - v_ydxdy = \iint_{\mathrm{in}(\gamma)} u_x - u_x dxdy = 0$$
+
+As such, $\int_{\gamma}f(z)dz = 0 + i0 = 0$.
+\end{proof}

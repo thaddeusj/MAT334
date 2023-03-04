@@ -1,0 +1,110 @@
+\section{Tuesday, May 7}
+
+\todaybox{ Complex numbers, and complex arithmetic.}
+
+
+\begin{defbo}{The Complex Numbers}{complexNumbers}
+The imaginary unit $i$ is a number such that $i^2 = -1$. A complex number is a number of the form $a + bi$, where $a,b\in \R$. The set of complex numbers is $\C = \{a + bi| a,b\in \R\}$.
+\end{defbo}
+
+\begin{note}The name "imaginary" is a misnomer. When mathematicians first started thinking about complex numbers, $i$ was treated at best as a calculation trick and at worst as pure nonsense. The name was originally chosen as an insult.
+
+Now, we recognize that the concept is real in the same way any other advanced mathematics is. These actually exist, and we can formally design a system that exhibits this behavior.
+
+Beyond that, however, complex numbers are actually useful in real life. For example, the mathematics behind electomagnetism is based on working with complex numbers.\end{note}
+
+\begin{ex}{}{} For example, $2 + 3i$, $\pi - ie^2$, and $1$ are all complex numbers.
+
+Why would $1$ be a complex number? Isn't it real? When we write $1$ in this context, we mean $1 + 0i$. In this way, we can think of every real number $r$ as a complex number as well: $r = r + 0i$.
+\end{ex}
+
+\subsection{Complex Algebra}
+
+Let's talk about how to manipulate complex numbers. Our overarching goal is to develop some notion of calculus. This requires us to be able to do algebra on $\C$.
+
+\begin{defbo}{Real and Imaginary Parts}{ReAndIm}\index{Algebra!real part}\index{Algebra!imaginary part} 
+Let $a+ bi\in \C$. Then the {\bf real and imaginary parts} of $a+bi$ are:
+
+$$\RE(a+bi) = a$$
+$$\IM(a+bi) = b$$
+\end{defbo}
+
+\begin{ex}{}{} Consider $z = 3 + 4i$. The real part of $z$ is $3$, and the imaginary part is $4$. Notice: $4$, not $4i$. The imaginary part of $z$ is still a real number.
+\end{ex}
+
+
+\begin{defbo}{Addition}{addition}\index{Algebra!addition}
+ Let $a+bi, c+di \in \C$. Then:
+
+$$(a+bi) + (c+di) = (a+c) + (b+d)i$$
+\end{defbo}
+
+So adding $z,w \in \C$ is done by adding together the real parts of $z,w$, and adding together the imaginary parts.
+
+\begin{defbo}{Multiplication}{multiplication}\index{Algebra!multiplication} 
+Let $a + bi, c+di \in \C$. Then:
+
+$$(a+bi)(c+di) = ac - bd + (ad + bc)i$$
+\end{defbo}
+
+Why would we choose this definition? Well, we want complex multiplication to satisfy the "distributivity property": $(a+b)c = ac+bc$ and $a(b+c) = ab + ac$. If we require these to hold, then we are forced to conclude that:
+
+\begin{align*}(a+bi)(c+di) &= (a+bi)c + (a+bi)di\\
+&= (ac + bic) + (adi + bidi)\\
+&= ac + bci + adi + bdi^2\\
+&= ac + bci + adi - bd\\
+&= (ac -bd) + (ad + bc)i
+\end{align*}
+
+Complex multiplication and addition satisfy a whole bunch of properties, specifically what are called the field axioms.
+
+
+\begin{thmbo}{The Field Axioms}{fieldAxioms}
+The complex numbers satisfy the following properties. For all $u, w, z \in \C$:
+
+\begin{enumerate}
+\item $w + z = z + w$
+\item $u + (w + z) = (u+ w) + z$
+\item $z + 0 = z$
+\item If $z = x + iy$, then $-z = (-x) + i(-y)$ satisfies that $z + (-z) = 0$.
+\item $wz = zw$
+\item $u(wz) = (uw)z$
+\item $1z = z$
+\item For any $z\in \C$ with $z\ne 0 + 0i$, there exists some $w\in \C$ with $zw = 1$. 
+\item $u(w+z) = uw + uz$ and $(u+w)z= uz + wz$
+\end{enumerate}
+\end{thmbo}
+
+\begin{proof} Proof is left as an exercise.\end{proof}
+
+\begin{ex}{}{} Let $z = 2 + 7i$, $w = 4 - 3i$. Find $w^2 - zw$.
+
+Well, to make life simpler, we can factor (using distributivity):
+$$w^2 - zw = w(w-z) = (4-3i)[(4-3i) - (2 + 7i)] = (4-3i)(2 - 10i) = (8 - 30) + (-40 - 6)i = -22 - 46i$$
+
+\end{ex}
+
+What about division? First, what is division? What does $\frac{1}{z}$ mean? 
+
+\begin{defbo}{Multiplicative Inverse}{multinv}
+Let $z\in \C$. We say that $w = \frac{1}{z}$ if $zw =1$. In this situation, $w$ is a {\bf multiplicative inverse} for $z$.
+\end{defbo}
+
+So how do we find a multiplicative inverse for $z$? To do that, we're going to need to introduce two new ideas, the complex conjugate and the modulus:
+
+\begin{defbo}{Complex Conjugate}{conjugate}\index{Algebra!complex conjugate} 
+Let $a+bi \in \C$. Then the {\bf complex conjugate} of $a+bi$ is:
+
+$$\overline{a+bi} = a-bi$$
+\end{defbo}
+
+\begin{defbo}{Modulus}{modulus}\index{Algebra!modulus} 
+Let $a+bi \in \C$. Then the {\bf modulus} of $a+bi$ is the real number:
+
+$$|a+bi| = \sqrt{a^2 + b^2}$$
+\end{defbo}
+
+How does this help us define division? It turns out, these are exactly the building blocks we need:
+
+\begin{lem}Let $a+bi\in \C$ be non-zero (i.e., at least one of $a,b$ is not 0). Then $\frac{1}{z} = \frac{a}{a^2 + b^2} - \frac{b}{a^2 + b^2}i$. Another way of writing this is that $\frac{1}{z} = \frac{\overline{z}}{\left|z\right|^2}$, where we understand that division by a real number means division on both the real part and imaginary part.\end{lem}
+

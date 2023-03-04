@@ -1,0 +1,99 @@
+\section{Tuesday, May 14}
+\todaybox{ We will finish off our discussion from last class about polar form.
+
+We will cover section 1.2 of the textbook. We will discuss $n^{\text{th}}$ roots, as well as some small amount of geometry.}
+
+
+Last class, we ended with a short proof of a formula for multiplication in polar form:
+
+$$(re^{i\theta})(Re^{i\Psi}) = rRe^{i(\theta + \Psi)}$$
+
+This allows us to quickly prove our first named theorem!
+
+\begin{thmbo}{De Moivre's Theorem}{demoivre} \index{De Moivre's Theorem}
+Let $n\in \N$. Then $(\cos(\theta) + i\sin(\theta))^n = \cos(n\theta) + i\sin(n\theta)$.
+\end{thmbo}
+
+\begin{proof} We proceed by induction. The claim is clearly true for $n = 1$.
+
+Suppose $(\cos(\theta) + i\sin(\theta))^n = \cos(n\theta) + i\sin(n\theta)$. This really just says: $(e^{i\theta})^n = e^{i(n\theta)}$.
+
+Now, consider $(\cos(\theta) + i\sin(\theta))^{n+1}$. We have:
+
+\begin{align*} (\cos(\theta) + i\sin(\theta))^{n+1} &= (e^{i\theta})^{n+1}\\
+&= (e^{i\theta})^ne^{i\theta}\\
+&= e^{i(n\theta)}e^{i\theta} \qquad\qquad\qquad\qquad \qquad   (\text{by the induction hypothesis})\\
+&= e^{i(n+1)\theta} \qquad \qquad\qquad \qquad\qquad 	 	 (\text{by theorem \ref{thm:polarmult}})\\
+&= \cos((n+1)\theta) + i\sin((n+1)\theta)
+\end{align*}
+\end{proof}
+
+
+We end our discussion of complex algebra with one last definition. We will need to talk about the polar form, and specifically the angle, of a complex number very often.
+
+\begin{defbo}{The Argument}{argument}\index{Argument} Let $z = re^{i\theta}$ be non-zero. The angle $\theta$ is called an argument for $z$.
+
+We do not define an argument for $z = 0$.
+\end{defbo}
+
+The argument of a complex number is not unique. For example, $e^{i0} = 1$, and $e^{i2\pi} = \cos(2\pi) + i\sin(2\pi) = 1$. This means that $0$ and $2\pi$ are both arguments for $1$!
+
+\begin{ex}{}{} Is $\frac{7\pi}{3}$ an argument for $1 + \sqrt{3}i$?
+
+There are two approaches to this. One way would be to find an argument for $1 + \sqrt{3}i$. We recognize this as appearing on a 30-60-90 special triangle of hypotenuse 2, in the first quadrant. In particular, $\theta = \frac{\pi}{3}$ is an argument for $1 + \sqrt{3}i$.
+
+Then we quickly check that $\frac{\pi}{3}$ and $\frac{7\pi}{3}$ point in the same direction, since they differ by a multiple of $2\pi$.
+
+\vspace{10pt}
+
+Another approach would be to see what $e^{i\frac{7\pi}{3}}$ is. We find that $e^{i\frac{7\pi}{3}} = \frac{1}{2} + \frac{\sqrt{3}}{2}i$, and so $1 + \sqrt{3}i = 2e^{i\frac{7\pi}{3}}$. So $\frac{7\pi}{3}$ is an argument for $1 + \sqrt{3}$.
+
+\end{ex}
+
+The non-uniqueness of the argument ends up giving the complex numbers a lot of rich theory. For example, every non-zero number will have $n$ different $n^{\text{th}}$ roots. Every complex number will have infinitely many logarithms. We'll see this when we talk about the concept of ``branches".
+
+Sometimes, we don't need all that freedom. Very often, it's enough to consider arguments within a specific range. One particular choice is $(-\pi,\pi)$.
+
+\begin{defbo}{The Principal Argument}{principalArg}\index{Argument!principal} 
+Let $z\in \C$ such that $z$ is not a negative real number. The principal arugment of $z$ is the argument $\Arg(z) \in (-\pi,\pi)$.
+\end{defbo}
+
+\begin{note} This is a different convention than the book, and other sources on the internet, choose. I am specifically excluding negative reals from having a principal argument.
+
+This will allow us to avoid some ugly continuity issues later on when we define the principal logarithm, or other principal branches of multivalued functions.\end{note}
+
+
+
+\subsection{$n^{\text{th}}$ roots}
+
+We now turn our attention to square and higher roots. What is an $n^{\text{th}}$ root, and how do we find them?
+
+\begin{defbo}{$n^{\text{th}}$ Roots}{roots}
+Let $n\in\N$. Then we say that $z$ is an $n^{\text{th}}$ root of $w$ if $z^n = w$.
+\end{defbo}
+
+In the real numbers, solving the equation $x^n = c$ is fairly straightforward. If $n$ is even, then it has no solution for $c < 0$. And for $c \ge 0$, the solutions are $x = \pm\sqrt[n]{c}$. For $n$ odd, there is always a solution: $x = \sqrt[n]{c}$.
+
+We have already seen that this is no longer true for complex numbers. In particular, the equation $z^2 = -1$ has a solution: $i$ (and $-i$ as well). This is true in a much more broad sense. The equation $z^n = c$ always has a solution, and De Moivre's theorem tells us exactly how to find such solutions.
+
+Let us begin with an example, to see the general tactic in action.
+
+\begin{ex}{}{} Find all square roots of $z^2 = 1 + i$.
+
+There are a couple of ways to approach this. One way is to write $z = x + iy$, and then expand $z^2 = 1+i$ to get the equations:
+$$x^2 - y^2 = 1$$
+$$2xy = 1$$
+
+Now, this is solvable. For example, we can write $y = \frac{1}{2x}$, and substitute this into the first equation, giving $x^2 - \frac{1}{4x^2} = 1$. Rearranging to give $4x^4 - 4x^2 - 1 = 0$. We can then use the quadratic formula to find $x$.
+
+However, this approach has some major drawbacks. This isn't an easy calculation, to start. But worse, it doesn't generalize. For example, if we wanted to solve $z^3 = 1+i$, we would need to solve the system $x^3 - 3xy^2 = 1$ and $3x^2y - y^3 = 1$, which is quite a bit more difficult. This approach doesn't work for higher powers.
+
+Instead, let's see what happens if we work in polar form. Let $z = re^{i\theta}$. Then we have:
+$$r^2e^{2i\theta} = 1 + i = \sqrt{2}e^{i\frac{\pi}{4}}$$
+
+By comparing moduli on both sides, we find $r^2 = \sqrt{2}$, so $r = \sqrt[4]{2}$.
+
+Also, by comparing arguments, we see that $2\theta$ is an argument for $1 + i$. I.e., $2\theta = \frac{\pi}{4} + 2k\pi$ for some $k\in \Z$.
+
+As such, $z = \sqrt[4]{2}e^{i\frac{\pi}{8} + k\pi}$ for some $k\in \Z$. Recalling that $e^{i\theta}$ is $2\pi$ periodic, we see that we only get two distinct solutions: $\pm\sqrt[4]{r}e^{i\frac{\pi}{8}}$. 
+\end{ex}

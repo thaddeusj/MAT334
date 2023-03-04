@@ -1,0 +1,255 @@
+\section*{Chapter 3 Problems}
+\addcontentsline{toc}{section}{Chapter 3 Problems}
+
+\begin{enumerate}
+\item Which of the following curves are closed? For each of the {\bf closed} curves below, determine whether the curve is positively or negatively oriented.
+
+\begin{enumerate}[a)]
+\item The circle of radius 3 centered at $z_0 = -i + 1$.
+\item The semicircle of radius 2 centered at 0 starting at $2$ and ending at $-2$.
+\item The quarter-circle of radius $\sqrt{2}$, centered at $i$, and going from $1 + 2i$ to $1$.
+\item The closed semicircle of radius $R$ from $1$ to $-1$. (Closed here means that once we reach $-1$, we head back to 1 along a straight line.)
+\item The triangle with vertices $1 + i$, $2-i$ and $\frac{1}{i}$ starting at $1 + i$ and moving counterclockwise.
+\item The square with vertices $0,1,1+i,$ and $i$, travelled in that order.
+
+\item The curve given first by following the circle of radius $2$ centered at $0$ from $2$ to $-2$, counterclockwise. Then follow the line segment from $-2$ to $-1$. Then follow the circle of radius 1 centered at $0$ around one full rotation, clockwise. Then follow the line segment from $-1$ back to $-2$. And then finish following the circle of radius 2 from $-2$ back to $2$, still going counterclockwise.
+\end{enumerate}
+
+
+
+\item Let $\gamma_1(t)$ be the curve in 1d) and $\gamma_2(t)$ be the curve in 1f). For each $f(z)$ given below, evaluate $\int_{\gamma_1} f(z)dz$ and $\int_{\gamma_2}f(z)dz$.
+
+\begin{enumerate}[a)]
+\item $f(z) = z$
+\item $f(z) = z^2$
+\item $f(z) = e^z$
+\item $f(z) = \frac{1}{z + i}$
+\item $f(z) = 1$
+\end{enumerate}
+
+You should get $0$ for each of these integrals. Do not use any FTC like results, I want you to do these from the definition of the integral.
+
+
+\item Recall that for a smooth curve $\gamma(t)$ on $[a,b]$, we defined $(-\gamma)(t)$ by:
+
+$$(-\gamma)(t) = \gamma(a + b - t)$$
+
+Prove that $\int_{-\gamma}f(z)dz = -\int_\gamma f(z)dz$.
+
+\item Suppose $\gamma_1$ and $\gamma_2$ are curves such that $\gamma_2$ starts at the end of $\gamma_1$. Prove that:
+
+$$\int_{\gamma_1 + \gamma_2} f(z)dz = \int_{\gamma_1}f(z)dz + \int_{\gamma_2}f(z)dz$$
+
+\item Suppose $\gamma_1(t)$ is a smooth curve, and $\gamma_2(t)$ traverses $\gamma_1(t)$ backwards. Prove that:
+
+$$\int_{\gamma_1 + \gamma_2} f(z)dz = 0$$
+
+Hint: this should be a 2 line argument.
+
+
+\item Suppose that $\gamma$ is the circle of radius $\frac{1}{2}$ centered at $0$. For which of the following functions $f(z)$ can we use the Cauchy Integral theorem to conclude that $\int_{\gamma}f(z)dz = 0$?
+
+\begin{enumerate}[a)]
+\item $f(z) = z$
+\item $f(z) = \Log(z)$
+\item $f(z) = \Log(z + 4)$
+\item $f(z) = (z^2 - z)^{\frac{1}{2}}$, using the principal square root
+\item $f(z) = (z^2 - z)^{\frac{1}{2}}$, using the branch of the square root given by $\arg(z) \in (0,2\pi)$
+\item $e^{\Log(z)}$
+\end{enumerate}
+
+
+\item Calculate the following integrals using our $\C$FTC:
+
+\begin{enumerate}[a)]
+\item $\int_{\gamma} z^2 + \cos zdz$ where $\gamma$ is any curve from $0$ to $2\pi$.
+\item $\int_{\gamma} \cos(z)\sin(z)dz$ where $\gamma$ is any curve from $0$ to $2\pi$.
+\item $\int_{\gamma} \frac{1}{z}dz$ where $\gamma$ is a curve from $2$ to $-3i$ that doesn't cross $(-\infty,0]$. (Hint: what is the derivative of $\Log(z)$?
+\item $\int_{\gamma} \frac{1}{z}dz$ where $\gamma$ is a curve from $a$ to $b$ that does not cross the ray $\{re^{i\theta}|r \ge 0\}$, where neither $a$ nor $b$ are on the ray. 
+\item $\int_{\gamma} \frac{1}{z^2}dz$ where $\gamma$ is a curve from $2$ to $-3i$ such that $\gamma(t) \ne 0$ for any $t$.
+\item $\int_{\gamma} \Log(z)dz$ where $\gamma$ is a curve from $2$ to $-3i$ that doesn't cross $(-\infty,0]$ (Hint: what is the antidervative of $\ln x$ over $\R$?)
+\end{enumerate}
+
+\item Determine which of the following functions have a primitive on the domain $\C\setminus \{0\}$.
+
+\begin{enumerate}[a)]
+\item $z^3 - 2z$
+\item $\Log z$
+\item $z^{\frac{1}{2}}$ for the principal branch.
+\item $\Log(e^z)$
+\end{enumerate}
+
+
+\item For each of the below integrals, determine whether Cauchy's Integral Theorem applies. If not, why?
+
+\begin{enumerate}[a)]
+\item $\int_{\gamma} \cos(\frac{1}{z})dz$  where $\gamma$ is any curve from $1$ to $i$
+\item $\int_{\gamma} \cos(\frac{1}{z})dz$ where $\gamma$ is the circle of radius 1 centered at $1$
+\item $\int_{\gamma} \cos(\frac{1}{z})dz$ where $\gamma$ is the circle of radius 1 centered at 2
+\item $\int_{\gamma} e^{2z}\Log(z) dz$ where $\gamma$ is the circle of radius 1 centered at $0$
+\item $\int_{\gamma} e^{2z}\Log(z) dz$ where $\gamma$ is the circle of radius 1 centered at $2$
+\item $\int_{\gamma} e^{2}dz$ where $\gamma$ is the close semicicle of radius 1 centered at $1$ from travelling from $2$ to $0$ clockwise.
+\end{enumerate}
+
+
+\item Determine which of the following domains are simply connected. (Hint: draw it out and look for holes.)
+
+\begin{enumerate}[a)]
+\item $\{z \in \C| \RE(z) > 0\}$ 
+\item $\{z \in \C| \IM(z) > 0\}$
+\item $\{z \in \C| 0 < |z - 2| < 2\}$
+\item $\C$
+\item $\emptyset$
+\item $\C \setminus \Z$
+\item open balls
+\end{enumerate}
+
+
+\item Let $D$ be a simply connected domain, and $\gamma_1$ and $\gamma_2$ any two smooth curves in $D$ from $z_0$ to $z_1$. Suppose $f(z)$ is analytic on $D$. Prove that $\int_{\gamma_1} f(z)dz = \int_{\gamma_2}f(z)dz$.
+
+\item Find all isolated singularities of the following functions:
+
+\begin{enumerate}[a)]
+\item $z^2 + 1$
+\item $\frac{1}{z^2+1}$
+\item $e^{\frac{1}{z^2 + 1}}$
+\item $\frac{z^3 + 27}{z- \frac{3}{2} - \frac{3\sqrt{3}}{2}i}$
+\end{enumerate}
+
+\item For each of the functions above, determine which of their singularities are removable.
+
+\item Which of the following functions have roots inside $|z| = 2$? (Remember that a root of $f$ is a $z\in \C$ with $f(z) = 0$.) If so, what are they?
+
+\begin{enumerate}[a)]
+\item $z^3 - \frac{1}{2}$
+\item $\sin(4z)$
+\item $z^3 - iz^2 - z + i$
+\item $e^{4z} - 1$
+\item $z^5 - 16$
+\end{enumerate}
+
+
+\item Let $\gamma_1$ be the circle $|z| = 2$ travelled once counterclockwise, and $\gamma_2$ be the circle $|z-1| = 1$ travelled once counterclockwise. For which functions in question 14 is it possible to deform $\gamma_1$ into $\gamma_2$ without crossing any roots of the function? (I.e., for which functions can we use the deformation theorem to conclude that the integrals over these two curves are equal?)
+
+
+\item Let $\gamma$ be the circle $|z| = 1$ travelled once counterclockwise. Calculate the following integrals using the Cauchy Integral Formula.
+
+\begin{enumerate}[a)]
+\item $\int_{\gamma} \frac{1}{z^2}dz$
+\item $\int_{\gamma} \frac{1}{z^2 - \frac{1}{4}}dz$
+\item $\int_{\gamma} \frac{\cos(z)e^z}{z - \frac{1}{2}}dz$
+\item $\int_{\gamma} \frac{\Log(z + 2)}{z}dz$
+\item $\int_{\gamma} \frac{1}{z^2 - \frac{5}{2}z + 1}dz$
+\item $\int_{\gamma} \frac{1}{(z^2 - \frac{5}{2}z + 1)^2} dz$ for any $n \in \N$
+\item $\int_{\gamma} \frac{1}{(z^2 - \frac{5}{2}z + 1)^n} dz$ for any $n \in \N$
+\item $\int_{\gamma} \frac{\cos(\sin(\cos(z)))}{z^2}dz$
+\end{enumerate}
+
+\item So far we've seen how to handle simple closed curves travelled in positive orientation. What do we do if the curve isn't simple, or the orientation is negative?
+
+\begin{enumerate}[a)]
+\item Suppose $\gamma$ can be broken up into $n$ simple closed curves $\gamma_1,...\gamma_n$. How does $\int_{\gamma} f(z)dz$ relate to the integrals $\int_{\gamma_i} f(z)dz$? (No proof required, but it might help to draw a picture.)
+\item Suppose $\gamma$ travels a simple closed curve $n$ times. (Meaning that there is some simple closed curve $\Gamma$ such that $\gamma$ traces out $\Gamma$ exactly $n$ times, all in the same direction.)
+
+\vspace{10pt}
+
+Prove that $\int_\gamma f(z)dz = n \int_\Gamma f(z)dz$
+
+\item Suppose $\gamma$ is negatively oriented. Justify why $-\gamma$ is positively oriented. Give a strategy for integrating over negatively oriented curves.
+\end{enumerate}
+
+
+\item Suppose $\Gamma$ is a simple, closed curve. Suppose $\gamma$ travels $\Gamma$ positively $n_1$ times, then negatively $n_2$ times, then positively $n_3$ times, and so on. For $k$ odd, $\gamma$ travels $\Gamma$ positively $n_k$ times, and for each even $k$ it travels $\Gamma$ negatively $n_k$ times. Prove that:
+
+$$\int_{\gamma} f(z)dz = \left(\sum_{k \text{ odd}} n_k - \sum_{k \text{ even}}n_k\right)\int_{\Gamma} f(z)dz$$
+
+\item Let $\gamma$ be the curve defined by travelling $|z| = 1$ twice clockwise, then once counterclockwise, then once clockwise again.
+
+Compute each integral from question 16 over this new curve.
+
+\item Compute each of the following integrals, using any method you like.
+\begin{enumerate}[a)]
+\item $\int_{|z| = 1} \tan(z)dz$ 
+\item $\int_{\gamma} \frac{1}{z^2 - 4z}dz$ over the triangle with vertices $1, 1 - i,$ and $2 + 4i$
+\item $\int_{\gamma} \frac{1}{z^2 - 4z}dz$ over the triangle with vertices $-1,1-i,2 + 4i$
+\item $\int_{|z-1| = 3} \frac{\cos(z)}{2z^5} dz$
+\item $\int_{|z-1| = \frac{1}{2}} \frac{1}{\sin(z)(z-1)^2}dz$
+\item $\int_{|z| = 2}\frac{e^z - \sin(z)}{z^2 - 8z + 15}dz$
+\item $\int_{|z| = 2} \frac{1}{z^2 -  1}dz$
+\item $\int_{|z - 1| = 1} \frac{\sin(z)e^z}{z^4 - 1}dz$
+\end{enumerate}
+
+\item  Suppose $f$ is entire with $|f'(z)| < |f(z)|$ for all $z\in \C$. Prove that $f(z) = Ke^{Cz}$ for some $C\in \C$. (Hint: show that $f(z) \ne 0$ for any $z \in \C$. Then, try to use this to come up with a function to use Liouville's theorem on. You may assume that $Ke^{Cz}$ is the only solution to $f'(z) = Cf(z)$.)
+
+
+\item[\textbf{HARD}] As a preview of things to come, let's see how we can use complex integration to calculate a real integral. We are going to calculate:
+
+$$\int_{-\infty}^\infty \frac{1}{x^4 +1}dx$$
+
+This is an improper integral, which is improper in two places: at $\pm \infty$. So let's recall what this integral is:
+
+$$\int_{-\infty}^\infty \frac{1}{x^4 + 1} dx = \lim_{R \rightarrow \infty} \int_{-R}^0 \frac{1}{x^4 + 1}dx + \lim_{S\rightarrow \infty} \int_0^S \frac{1}{x^4 + 1}dx$$
+
+\begin{enumerate}[a)]
+
+\item Let's start by getting this down to one limit. To begin, show that $\int_{-\infty}^\infty \frac{1}{x^4 + 1}dx$ exists, by comparing it to $\int_{-\infty}^\infty \frac{1}{x^2 + 1}dx$. This shows that we can actually calculate the integral as:
+
+$$\int_{-\infty}^\infty \frac{1}{x^4 + 1}dx = \lim_{R\rightarrow \infty} \int_{-R}^R \frac{1}{x^4 + 1}dx$$
+
+Consider this step optional. It is a good idea to review your first year material on the convergence of improper integrals. We're going to need it in a bit.
+
+\item Let $R > 1$. Now, we can view this as the integral over $\gamma_R(t) = t$ for $t \in [-R,R]$ of:
+
+$$\int_{\gamma_R} \frac{1}{z^4 + 1}dz$$
+
+Now, this doesn't help us much. We have a bunch of techniques for integrating closed curves, but this isn't closed. So let's define a related closed curve.
+
+\vspace{10pt}
+
+Let $C_R$ be the upper semicircle from $R$ to $-R$, so that $\gamma_R + C_R$ is now a closed curve. So our curve is:
+
+\begin{center}\begin{tikzpicture}
+\draw[<->] (-2.5,0)--(2.5,0);
+\draw[<->](0,-2.5)--(0,2.5);
+\draw[-, color = red] (2,0) arc (0:180:2);
+\draw[-,color = red] (-2,0) -- (2,0);
+\draw[-{Latex[width = 9pt]}, color = red] (2,0) arc (0:160:2);
+\draw[-{Latex[width = 9pt]}, color =red] (-2,0)--(1.4,0);
+\draw (2,0) node[inner sep = -2pt, label = {[label distance = -1pt]-90:R}]{};
+\draw (-2,0) node[inner sep = -2pt, label = {[label distance = -1pt]-90:-R}]{};
+\draw (1.4,1.4) node[inner sep = -2pt, label = {[label distance = -1pt]45:$C_R$}]{};
+\draw (0.5,0) node[inner sep = -2pt, label = {[label distance = -1pt]-90:$\gamma_R$}]{};
+\end{tikzpicture}
+\end{center}
+
+Find $\int_{\gamma_R + C_R} \frac{1}{z^4 + 1}dz$.
+
+
+
+\item Now, this integral has two components, $\int_{\gamma_R} \frac{1}{z^4 + 1}dz$, which is the integral we care about, and $\int_{C_R} \frac{1}{z^4 + 1}dz$. We'd like to get rid of this second integral. Let's see what happens as we let $R \rightarrow \infty$.
+
+To do this, let's try to estimate this curve. We do this in stages.
+
+\begin{enumerate}[i)]
+\item Show that on the curve $|z| = R$, that ${|z^4 + 1|}\ge R^4 - 1$. Use this to show that $\left| \frac{1}{z^4 + 1}\right| \le \frac{1}{R^4 - 1}$.
+\item Find the length of $C_R$.
+\item Use our estimation of integrals to show that $|\int_{C_R} \frac{1}{z^4 + 1}dz| \le \frac{\pi R}{R^4 - 1}$.
+\end{enumerate}
+
+\item Prove that $\lim_{R\rightarrow \infty} \int_{C_R} \frac{1}{z^4 + 1}dz  = 0$.
+
+\item Now, we know $\int_{\gamma_R + C_R} \frac{1}{z^4 + 1}dz$ is constant for $R > 1$, so $\lim_{R\rightarrow \infty} \int_{\gamma_R + C_R} \frac{1}{z^4 + 1}dz$ exists.
+
+\vspace{10pt}
+
+We also know that $\lim_{R\rightarrow 0} \int_{C_R}\frac{1}{z^4 + 1} dz = 0$.
+
+\vspace{10pt}
+
+Use these two facts to find $\lim_{R\rightarrow \infty} \int_{\gamma_R} \frac{1}{z^4 + 1}dz$.
+
+\item Show that $\int_{-\infty}^\infty \frac{1}{x^4 + 1}dx = \frac{\pi}{\sqrt{2}}$.
+
+\end{enumerate}
+\end{enumerate}
+

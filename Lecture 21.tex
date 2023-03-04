@@ -1,0 +1,212 @@
+\section{Thursday, August 1}
+
+\todaybox{We continue our discussion of Laurent series and see how it relates to integration. This will bring us to talking about residues and the Residue Theorem.}
+
+We begin by proving our theorem from the previous lecture.
+
+\begin{proof} Let $w\in D$, and choose $r_1,r_2 \in \R$ so that $R_1 < r_1 < |w-z_0| < r_2 < R_2$. By problem 3b on practice test 2, we have that:
+
+$$f(w) = \frac{1}{2\pi i}\left(\int_{|z-z_0| = r_2} \frac{f(z)}{z-w}dz - \int_{|z-z_0| = r_1} \frac{f(z)}{z-w}dz\right)$$
+
+Now, as in our proof of \ref{thm:holoAna}, we know that:
+
+$$\int_{|z-z_0| = r_2} \frac{f(z)}{z-w}dz = \sum_{n =0}^\infty \left(\int_{|z-z_0| = r_2} \frac{f(z)}{(z-z_0)^{n+1}}dz\right) (w-z_0)^n$$
+
+So we only need to handle the other integral. To do so, we'll rewrite:
+
+$$\frac{f(z)}{z-w} = \frac{f(z)}{(z-z_0) - (w-z_0)} = \frac{1}{z-z_0} \frac{f(z)}{\left(1 - \frac{w-z_0}{z-z_0}\right)}$$
+
+Now, since we're concerned with the integral around the circle $|z-z_0| = r_1$, we know that $|z-z_0| < |w-z_0|$ by our initial assumption. As such, $\left|\frac{w-z_0}{z-z_0}\right| > 1$. We may therefore use our Laurent series for $\frac{1}{1-z}$ on the annulus $|z|> 1$ to get:
+
+$$\frac{f(z)}{z-w} = -\frac{1}{z-z_0}\sum_{n = 1}^\infty \frac{f(z)(z-z_0)^n}{(w-z_0)^n}$$
+
+Uniform convergence then gives us that:
+
+$$\int_{|z-z_0| = r_1} \frac{f(z)}{z-w}dz = -\sum_{n = 1}^\infty \left(\int_{|z-z_0| = r_1} f(z)(z-z_0)^{n-1}dz\right)\frac{1}{(w-z_0)^n}$$
+
+This isn't in quite the form we want it in. So I'll make a change of variable on the index. Let $k = -n$. Then we have:
+
+$$\int_{|z-z_0| = r_1} \frac{f(z)}{z-w}dz =-\sum_{k = -\infty}^{-1} \left(\int_{|z-z_0| = r_1} \frac{f(z)}{(z-z_0)^{k+1}}dz\right)(w-z_0)^{k}$$
+
+Adding our two integrals together gives:
+
+$$f(w) = \frac{1}{2\pi i} \left(\sum_{k = 0}^\infty \left(\int_{|z-z_0| = r_2} \frac{f(z)}{(z-z_0)^{k+1}}dz\right)(w-z_0)^k + \sum_{k = -\infty}^{-1} \left(\int_{|z-z_0| = r_1} \frac{f(z)}{(z-z_0)^{k+1}}dz\right)(w-z_0)^k\right)$$
+
+This is close to what we want, but not quite! Indeed, our final formula should involve integrals over $|z-z_0| = r$, not $r_1$ or $r_2$. However, since $\frac{f(z)}{(z-z_0)^{k+1}}$ is analytic on $D$, the deformation theorem tells us that
+
+$$\left(\int_{|z-z_0| = r} \frac{f(z)}{(z-z_0)^{k+1}}dz\right)=\left(\int_{|z-z_0| = r_1} \frac{f(z)}{(z-z_0)^{k+1}}dz\right)=\left(\int_{|z-z_0| = r_2} \frac{f(z)}{(z-z_0)^{k+1}}dz\right)$$
+
+This gives us the desired formula.
+\end{proof}
+
+So how does this help us to integrate? Well, what happens when we set $n = -1$? We get:
+
+$$a_{-1} = \frac{1}{2\pi i} \int_{|z-z_0| = r}f(z)dz$$
+
+So if we have a Laurent series, integrating becomes super simple! Let's see an example:
+
+\begin{ex}{}{} Find $\int_{|z| = 1} ze^{\frac{1}{z^2}}dz$.
+
+With some effort, we can verify that this is neither removable nor a pole. This is an essential singularity. So we can't use CIT or CIF here. The only other options we have are to integrate by definition (terrible idea!) or to find a Laurent series. Mercifully, we know that $e^{z} = \sum_{n = 0}^\infty \frac{z^n}{n!}$ for any $z\in \C$. For $z\ne 0$, $\frac{1}{z^2}\in \C$, and so:
+
+$$ze^{\frac{1}{z^2}} = z\left(\sum_{n = 0}^\infty \frac{1}{n!z^{2n}}\right) = \sum_{n = 0}^\infty \frac{1}{n!z^{2n-1}} = z + \frac{1}{z} + \frac{1}{2!z^3} + \frac{1}{3!z^5} + ...$$
+
+Now, to integrate this we only need to find that $a_{-1}$ term. This is specifically the coefficient attached to the power $z^{-1}$. In this case, we have a $z^{-1}$ term of $\frac{1}{z}$, which gives us $a_{-1} = 1$.
+
+So, $\int_{|z| = 1} ze^{\frac{1}{z^2}}dz = 2\pi i a_{-1} = 2\pi i$.
+
+\end{ex}
+
+This is really useful. If you have a Laurent series valid on your curve, you can find the integral without any work. 
+
+\begin{defbo}{Residue}{}\index{Residue} Suppose $f(z) = \sum_{n = -\infty}^\infty a_n(z-z_0)^n$ converges on the annulus $\{z\in \C|0 < |z-z_0| < R\}$ for some $R > 0$. Then the {\bf residue} of $f(z)$ at $z_0$ is:
+
+$$\Res(f;z_0) = a_{-1}$$
+\end{defbo}
+
+So, for example:
+
+\begin{ex}{}{} From our earlier example, $\Res(ze^{\frac{1}{z^2}};0) = 1$.
+\end{ex}
+
+\begin{ex}{}{}Find $\Res(\frac{1}{1-z};0)$.
+
+Well, we know that $\frac{1}{1-z}$ is analytic inside $B_1(0)$. As such, it has a power series. A power series is just a Laurent series with $a_n = 0$ if $n < 0$. So $a_{-1} = 0$ and $\Res(\frac{1}{1-z};0) = 0$.
+\end{ex}
+
+This same argument proves:
+
+\begin{thmbo}{}{} If $f(z)$ is analytic on $B_R(z_0)$ or has a removable singularity at $z_0$, then $\Res(f;z_0) = 0$.
+\end{thmbo}
+
+\begin{proof} We've already discussed what happens when $f(z)$ is analytic on $B_R(z_0)$.
+
+If $f$ has a removable singularity at $z_0$, then we have previously shown (in the proof of \ref{thm:remove} that $f(z)$ is given by a power series on $B_R(z_0)\setminus\{z_0\}$ for some $R> 0$. This is an annulus whose inner radius is $0$, and so the $a_{-1}$ term of this power series is the residue. As such, the residue is $0$.
+\end{proof}
+
+We've used this principle to compute one integral (our first example with $ze^{\frac{1}{z^2}}$). Does this apply more generally? It turns out it's fairly flexible:
+
+\begin{thmbo}{The Residue Theorem}{}\index{Residue Theorem} Let $D$ be a domain and $z_1,\dots,z_n\in D$. Suppose $f(z)$ is analytic on $D\setminus \{z_1,\dots,z_n\}$. Let $\gamma$ be a piecewise smooth, positively oriented, simple closed curve in $D$ such that the inside of $\gamma$ is in $D$ and $z_1,\dots,z_n$ are inside $\gamma$. Then:
+$$\int_{\gamma} f(z)dz = \sum_{k = 1}^n 2\pi i \Res(f;z_k)$$
+
+\end{thmbo}
+
+What this really says is that the integral is $2\pi i$ times the sum of the residues at the function's singularities. And in particular, the singularities {\bf inside} the curve.
+
+\begin{proof} With the conditions on $\gamma$ and $f$ give, the deformation theorem applies to give that:
+
+$$\int_{\gamma} f(z)dz = \sum_{k=1}^n \int_{|z-z_k| = \frac{r_k}{2}} f(z)dz$$
+
+\noin where $r_k > 0$ such that $B_{r_k}(z_k)\in D\setminus\{z_1,\dots,z_k\}$. However, since $f(z)$ is analytic on $B_{r_k}(z_k)\setminus\{z_k\}$, we know that $|z-z_k| = \frac{r_k}{2}$ is contained in an annulus of radius $0$ on which $f(z)$ is analytic. As such:
+
+$$\int_{|z-z_k| = \frac{r_k}{2}} f(z)dz = 2\pi i \Res(f;z_k)$$
+
+\noin giving us the desired result.
+
+\end{proof}
+
+All this business of integrating using Laurent series and residues takes a bit of care. 
+
+\begin{ex}{}{} We know, by using the Cauchy Integral Formula that $\int_{|z| = 2} \frac{1}{1-z}dz = -2\pi i$. So what's wrong with the following argument?
+
+\MyCBox{black}{white}{We know that $\int_{|z| = 2} \frac{1}{1-z}dz = a_{-1}$ in a Laurent series for $\frac{1}{1-z}$. However, $a_{-1} = \Res(f;0)$. Since $\frac{1}{1-z}$ is analytic on $B_1(0)$, we have that $\Res(\frac{1}{1-z};0) = 0$ and so $\int_{|z| = 2} \frac{1}{1-z}dz = 0$.}
+
+The key thing here is that we're using the wrong Laurent series! We want $a_{-1}$ from a Laurent series of $\frac{1}{1-z}$ which is valid on $|z| = 2$. However, we know that the power series for $\frac{1}{1-z}$ is only valid on $|z| < 1$, which does not contain the curve. The correct Laurent series to use is:
+
+$$\frac{1}{1-z} = -\sum_{n = 1}^\infty \frac{1}{z^n}$$
+
+\noin which gives $a_{-1} = -1$, agreeing with our calculating using CIF.
+
+Another way to look at this is: we used the wrong residue! We tried to say that $\int_{|z|  = 2} \frac{1}{1-z}dz = 2\pi i\Res(\frac{1}{1-z};0)$. But that's not what the residue theorems says to do. We need $\Res(\frac{1}{1-z};1)$. Since $\frac{1}{1-z} = -\frac{1}{z-1}$ is already written as a Laurent series centered at $z_0 = 1$, we can quickly read off the residue as $-1$.
+
+\end{ex}
+
+This example brings up an important warning:
+
+\begin{warn}{}{} Use the right Laurent series! Make sure that when you're using Laurent series to integrate, you're using a Laurent series that is valid on an annulus containing your curve!
+
+\vspace{10pt}
+
+And when trying to use the Residue Theorem, plug the right points in! The whole idea is that you look at the residues at the singularities!
+\end{warn}
+
+The Residue Theorem gives us an overarching theory for integrating functions which are analytic except for some number of isolated singularities. However, this simplicity is really just an organizational tool. We've moved the hard part from knowing a bunch of different theorems to knowing how to calculate residues. We've handled removable singularities. That leaves poles and essential singularities.
+
+\subsection{Residues at Poles}
+
+Let's start by talking about how to recognize poles from their Laurent series.
+
+Suppose $f(z)$ has a pole of order $n > 0$ at $z_0$. Then we know, from the definition of a pole, that $f(z) = \frac{g(z)}{(z-z_0)^n}$ where $g(z_0)\ne 0$ and $g(z)$ is analytic. Since $g(z)$ is analytic, it has a power series centered at $z_0$. So we can write:
+
+$$f(z) = \frac{\sum_{k = 0}^\infty b_k(z-z_0)^k}{(z-z_0)^n} = \frac{b_0}{(z-z_0)^n} + \frac{b_1}{(z-z_0)^{n-1}} + \dots$$
+
+Notice that this is a Laurent series with $a_k = b_{k + n}$, and so $a_k = 0$ for $k < -n$. In particular, there are only finitely many terms with negative powers! And since $b_0 = g(z_0)\ne 0$, we know that $z^{-n}$ is the lowest power that occurs in this series.
+
+Okay, so this tells us how to recognize a pole of order $n$. But how do we compute residues? This turns out to be very painful.
+
+\begin{thmbo}{}{} Suppose $f(z)$ has a pole of order $n$ at $z_0$. Then:
+
+$$\Res(f;z_0) = \frac{1}{(n-1)!}\lim_{z\rightarrow z_0} \frac{d^{n-1}}{d\;z^{n-1}} (z-z_0)^nf(z)$$
+\end{thmbo}
+
+\begin{proof} To start, let's look at $(z-z_0)^nf(z)$. We write $f(z) = \sum_{k = -n}^\infty a_k(z-z_0)^k$. Then:
+
+$$(z-z_0)^nf(z) = a_{-n} + a_{-n+1}(z-z_0) + a_{-n+2}(z-z_0)^2+\dots$$
+
+We need to isolate $a_{-1}$. Let's see what differentiating does:
+
+$$\frac{d}{d\;z} (z-z_0)^nf(z) = a_{-n+1} + 2a_{-n+2}(z-z_0) + 3a_{-n+3}(z-z_0)^2 + \dots$$
+$$\frac{d^2}{d\;z^2} (z-z_0)^nf(z) = 2a_{-n+2} + (3)(2)a_{-n+3}(z-z_0) + \dots$$
+
+Inductively, we can show that:
+
+$$\frac{d^{n-1}}{d\;z^{n-1}} (z-z_0)^nf(z) = (n-1)! a_{-1} + n!a_{0}(z-z_0) + \dots$$
+
+And so $\lim_{z\rightarrow z_0} \frac{d^{n-1}}{d\;z^{n-1}} (z-z_0)^nf(z) = (n-1)!a_{-1} = (n-1)!\Res(f;z_0)$. (Why can't we just substitute in $z = z_0$ at this point?)
+
+Dividing by $(n-1)!$ gives the desired result.
+
+\end{proof}
+
+Let's see this in practice. I apologize in advance.
+
+\begin{ex}{}{} Find $\int_{|z| = 1} \frac{1}{\sin^2(z)}dz$.
+
+Well, $\frac{1}{\sin^2(z)}$ is analytic on $\{z\in\Z|0<|z|< \pi\}$, so the Residue Theorem applies to give:
+
+$$\int_{|z| = 1} \frac{1}{\sin^2(z)}dz = 2\pi i \Res\left(\frac{1}{\sin^2(z)};0\right)$$
+
+\noin so we only need to find this residue. We need to identify what type of singularity this is first. We have already seen that $\sin(z)$ has a simple zero at $z_0 = 0$, so $\frac{1}{\sin(z)}$ has a simple pole there. We expect that $\frac{1}{\sin^2(z)}$ has a double pole there. Indeed, L'Hopital's rule quickly gives us that:
+
+$$\lim_{z\rightarrow 0} \frac{z^2}{\sin^2(z)} = 1$$
+
+\noin so this is a double pole. Unfortunately, this is not the limit we need to compute to find the residue. This limit only tells us what type of pole we have. Instead, we have:
+
+$$\Res\left(\frac{1}{\sin^2(z)};0\right) = \lim_{z\rightarrow 0} \frac{d}{d\;z} \frac{z^2}{\sin^2(z)} = \lim_{z\rightarrow 0} \frac{2z\sin(z) - 2z^2\cos(z)}{\sin^3(z)}$$
+
+From here, we use L'Hopital's rule {\bf twice} to get:
+
+$$\Res\left(\frac{1}{\sin^2(z)};0\right) = \lim_{z\rightarrow 0} \frac{4z\sin(z) + 2(z^2  +1)\cos(z) + z\sin(z) - 2\cos(z)}{3\cos(2z)} = 0$$
+
+And so our integral is $0$ as well.
+
+\end{ex}
+
+Generally, for a pole of order $n$ you should expect to use L'Hopital's rule $n$ times to compute this limit.
+
+
+\subsection{Residues at Essential Singularities}
+
+You have no choice but to find a Laurent series. I'd like to say there's some trick, but there really isn't. Generally, this means you're going to be using power series you already know, such as our earlier example with $ze^{\frac{1}{z^2}}$.
+
+It is worth mentioning that we can recognize essential singularities by the function's Laurent series.
+
+\begin{thmbo}{}{} If $f(z)$ is analytic on $B_R(z_0)\setminus\{z_0\}$ and $f(z)$ has Laurent series $f(z) = \sum_{n = -\infty}^\infty a_n(z-z_0)^n$, then $z_0$ is essential if and only if for any $m\in \Z$, there exists $n\in \Z$ with $n < m$ and $a_n \ne 0$.
+\end{thmbo}
+
+So, if you have a Laurent series that extends infinitely in the negative direction and has inner radius of convergence $0$, the singularity is essential.
+
+\begin{proof} We proceed by showing the contrapositive.
+
+If the condition that for any $m\in\Z$ there exists $n< m$ with $a_n \ne 0$ is false, then there exists some $m \in \Z$ such that if $n < m$, then $a_n = 0$. If $m < 0$, we have seen from the previous subsection that $z_0$ is a pole of order $m$. And if $m\ge 0$, then $z_0$ is removable.
+\end{proof}

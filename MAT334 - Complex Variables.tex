@@ -1,0 +1,256 @@
+\newif\ifproofs
+\proofstrue
+
+\documentclass[12pt,oneside]{book}
+\pagestyle{plain}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} 
+\usepackage{amsfonts}
+\usepackage[top = 2cm, left = 1cm, right = 1cm, bottom = 2cm]{geometry}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{changepage}
+\usepackage{imakeidx}
+\usepackage{hyperref}
+
+\usepackage[breakable]{tcolorbox}
+\tcbuselibrary{theorems}
+
+\usepackage[toc,page]{appendix}
+
+
+\usetikzlibrary{patterns,decorations.pathreplacing, decorations.markings}
+
+ 
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+
+
+\setlength{\parskip}{5pt}
+
+
+\newcolumntype{C}{>{$}c<{$}} % math-mode version of "l" column type
+
+
+\bibliographystyle{plain}  
+
+\setlength\extrarowheight{3pt}
+
+\DeclareMathOperator*{\im}{im}
+\DeclareMathOperator*{\cl}{class}
+\DeclareMathOperator*{\di}{diam}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator{\RE}{Re}
+\DeclareMathOperator{\IM}{Im}
+
+\newtheorem{lem}{Lemma}
+\numberwithin{lem}{section}
+\newtheorem{thm}{Theorem}
+\numberwithin{thm}{section}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{fact}{Fact}
+\newtheorem*{lemm}{Lemma}
+\newtheorem*{claim}{Claim}
+
+\newtheorem{manuallemmainner}{Lemma}
+\newenvironment{manuallemma}[1]{%
+  \renewcommand\themanuallemmainner{#1}%
+  \manuallemmainner
+}{\endmanuallemmainner}
+
+
+
+\theoremstyle{definition}
+\newtheorem*{nota}{Notation}
+\newtheorem*{defn}{Def}
+\newtheorem{case}{Case}
+\newtheorem{subcase}{Case}
+\numberwithin{subcase}{subsection}
+\newtheorem{subsubcase}{Case}
+\numberwithin{subsubcase}{subcase}
+\newtheorem*{exer}{Exercise}
+\newtheorem*{hyp}{Hypothesis}
+\newtheorem*{notation}{Notation}
+
+\newtheorem*{TODAY}{Today}
+
+\newtheorem{Def}{Def}
+\numberwithin{Def}{section}
+
+%\newtheorem{ex}{Example}
+%\numberwithin{ex}{section}
+
+\newtheorem*{note}{Note}
+
+\newcommand{\Sum}{\displaystyle\sum}
+\newcommand{\fl}[1]
+         {\left\lfloor {#1} \right\rfloor}
+         
+         
+
+\newcommand{\ip}[1]
+         {\left< {#1}\right>}
+         
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\h}{\mathfrak{h}}
+\newcommand{\mfu}{\mathfrak{u}}
+\newcommand{\mfk}{\mathfrak{k}}
+\newcommand{\mfp}{\mathfrak{p}}
+\newcommand{\tr}{\text{\,Tr}}
+\newcommand{\su}{\mathfrak{su}}
+\newcommand{\SL}{\mathfrak{sl}}
+\newcommand{\SP}{\mathfrak{sp}}
+\newcommand{\so}{\mathfrak{so}}
+\newcommand{\mfa}{\mathfrak{a}}
+\newcommand{\mfs}{\mathfrak{s}}
+\newcommand{\ad}{\mathrm{ad}}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\noin}{\noindent}
+\newcommand{\ds}{\displaystyle}
+
+\newcommand{\Log}{\mathrm{Log}}
+\newcommand{\Arg}{\mathrm{Arg}}
+\newcommand{\Arccos}{\mathrm{Arccos}}
+\newcommand{\Arcsin}{\mathrm{Arcsin}}
+\newcommand{\Res}{\mathrm{Res}}
+
+\newcommand{\OL}[1]{
+\overline{#1}
+}
+
+
+\definecolor{THM}{HTML}{1D72F7}
+\definecolor{THMinner}{HTML}{AEC8EF}
+\definecolor{COR}{HTML}{AE1DF7}
+\definecolor{CORinner}{HTML}{DEB2F4}
+\definecolor{DEF}{HTML}{20BF33}
+\definecolor{DEFinner}{HTML}{A4F4AD}
+\definecolor{WARN}{HTML}{DE1E14}
+\definecolor{WARNinner}{HTML}{F0AEAA}
+
+
+\newcommand{\MyCBox}[3]{
+\noin\fcolorbox{#1}{#2}{\begin{minipage}{\textwidth}#3\end{minipage}}
+}
+
+
+\newcommand\amatrix[2]{
+\left[ \begin{matrix}#1\end{matrix} \,\middle\vert\, \begin{matrix}#2 \end{matrix} \, \right]
+}
+
+
+\newcommand\cvec[1]{
+\left[\begin{matrix} #1 \end{matrix}\right]}
+
+
+
+\newcommand{\defbox}[1]{
+\MyCBox{black}{DEF}{\begin{Def} #1\end{Def}}
+}
+
+
+
+\newcommand{\thmbox}[1]{
+\MyCBox{black}{THM}{\begin{thm} #1\end{thm}}
+}
+
+
+
+\newtcbtheorem[number within = section]{ex}{Example}
+{colback=white,colframe=lightgray,fonttitle=\bfseries, breakable, before upper={\parindent20pt\noindent}, parbox = false, boxrule = 1pt, arc = 2pt}{exa}
+
+\newtcbtheorem[number within=section]{thmbo}{Theorem}%
+{colback=THMinner,colframe=THM,fonttitle=\bfseries, breakable, before upper={\parindent20pt\noindent}, arc = 2pt}{thm}
+
+\newtcbtheorem[number within=section]{fthmbo}{Fake Theorem}%
+{colback=THMinner,colframe=THM,fonttitle=\bfseries}{fthm}
+
+\newtcbtheorem[number within=section]{defbo}{Definition}%
+{colback=DEFinner,colframe=DEF,fonttitle=\bfseries, breakable, before upper={\parindent20pt\noindent}, arc = 2pt}{def}
+
+\newtcbtheorem[number within=section]{corbo}{Corollary}%
+{colback=CORinner,colframe=COR,fonttitle=\bfseries}{cor}
+
+\newtcbtheorem[number within=section]{warn}{Warning}%
+{colback=WARNinner,colframe=WARN,fonttitle=\bfseries}{warn}
+
+\newcommand{\todaybox}[1]{
+\begin{tcolorbox}[colback = white, colframe = black, title = {\vspace{2pt}}Today, fonttitle = \bfseries]
+#1
+\end{tcolorbox}
+}
+
+\newcommand{\exercisebox}[1]{
+\begin{tcolorbox}[colframe = black, title = {\vspace{2pt}}Exercise, fonttitle = \bfseries]
+#1
+\end{tcolorbox}
+}
+
+\usepackage[T1]{fontenc}
+\usepackage{titlesec, blindtext, color}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+\titlespacing{\chapter}{0pt}{0pt}{30pt}
+
+
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@maketitle}{\newpage}{}{}{} 
+\makeatother
+
+
+\title{MAT334 - Complex Variables}
+\date{}
+
+\linespread{1.1}
+
+\makeindex[intoc]	
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\input{"chapter 1.tex"}
+
+\input{"chapter 1 problems.tex"}
+
+\input{"chapter 2.tex"}
+
+\input{"chapter 2 problems.tex"}
+
+\input{"chapter 3.tex"}
+
+\input{"chapter 3 problems.tex"}
+
+\input{"chapter 4.tex"}
+
+\input{"chapter 4 problems.tex"}
+
+\begin{appendices}
+
+\input{"Appendix A.tex"}
+
+\input{"Appendix B.tex"}
+\end{appendices}
+
+
+\printindex
+
+\end{document}	

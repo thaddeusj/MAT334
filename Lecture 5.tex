@@ -1,0 +1,144 @@
+\section{Tuesday, May 21}
+
+\todaybox{We will discuss the complex trigonometric functions. More importantly, we're going to begin our discussion of complex logarithms.}
+
+Last class, we defined the complex exponential function:
+
+$$e^{x+iy} = e^xe^{iy} = e^x(\cos(y) + i\sin(y))$$
+
+Let's talk about this some more.
+
+\begin{ex}{}{} Let $w = 1 + 4i$. Solve the equation $e^z = w$.
+
+Let $z = x + iy$. Then $e^xe^{iy} = 1+ 4i$. This tells us that:
+$$e^x = |w| = \sqrt{17}$$
+
+So we conclude that $x = \ln(\sqrt{17})$.
+
+Further, the expression $w = e^xe^{iy}$ tells us that $y$ is an argument for $w$! So, we need to find the arguments for $w$. We see that $w = \sqrt{17}e^{i\arctan(4)}$.
+
+Therefore, $z = \ln(\sqrt{17}) + i\arctan(4)$.
+
+\exercisebox{There is an error in this argument. What is it?}
+
+ We know that $y$ is AN argument for $w$. Not that $y$ is this particular argument for $w$. Instead, we can only conclude that $y = \arctan(4) + 2k\pi$ for some $k\in \Z$, and therefore $z = \ln(\sqrt{17}) + i(\arctan(4) + 2k\pi)$.
+\end{ex}
+
+\begin{note} $\ln(\sqrt{17}) + i\arctan(4)$ and $\ln(\sqrt{17}) + i(\arctan(4) + 2\pi)$ are different complex numbers! While $\arctan(4)$ and $\arctan(4) + 2\pi$ point in the same direction as angles, $y$ is not an angle. $y$ is the vertical component of the complex number $z$.
+
+This distinction is important. $y$ is not an angle, and so we can't ignore this $2k\pi$.\end{note}
+
+\begin{ex}{}{hardexpo} Solve the equation $e^{iz} - e^{-iz} = 2i$.
+
+It is possible to solve this equation by setting $z = x+ iy$, expanding into rectangular form, and then solving the resulting equations. However, this turns out to be fairly difficult.
+
+Instead, let $e^{iz} = w$. Then we have:
+$$w - \frac{1}{w} = 2i$$
+
+After some quick algebra, we can rearrange this to become:
+$$w^2 - 2iw - 1 = 0$$
+
+Now, from your homework, we know that we can solve this using the quadratic formula:
+$$w = \frac{2i \pm (-4 + 4)^{\frac{1}{2}}}{2} = i$$
+
+So, the solutions $z$ to the original equation satisfy $e^{iz} = i$. Let $z = x+iy$. Then $e^{-y + ix} = i$. This gives $e^{-y} = 1$, so $y = 0$.
+
+Also, we know that $x$ is an argument for $i$, so $x = \frac{\pi}{2} + 2k\pi$ for $k\in \Z$. Therefore, $e^{iz} - e^{-iz} = 2i$ if and only if $z = \frac{\pi}{2} + 2k\pi$ for some $k\in \Z$.
+
+\end{ex}
+
+
+\begin{ex}{}{} True or false: For any $z\in \C$, $e^z > 0$.
+
+False. Remember, it is nonsense to say that $a > b$ if $a,b$ are complex numbers. $e^z$ can be any complex number (except for $0$), so this is a nonsense statement.
+
+More concretely, $e^{i\pi} = -1 \not> 0$.
+
+\end{ex}
+
+\subsection{Complex Trigonometric Functions}
+
+Looking at Euler's formula, $e^{i\theta} = \cos(\theta) + i\sin(\theta)$, it seems like there's a connection between trigonometric functions and the complex exponential.
+
+If we play around with this fact, we can see:
+\begin{align*}
+e^{i\theta} &= \cos(\theta) + i\sin(\theta)\\
+e^{-i\theta} &= \cos(-\theta) + i\sin(-\theta) = \cos(\theta) - i\sin(\theta)
+\end{align*}
+
+Adding these expressions together, we see that:
+$$\cos(\theta) = \frac{e^{i\theta} + e^{-i\theta}}{2}$$
+$$\sin(\theta) = \frac{e^{i\theta} - e^{-i\theta}}{2i}$$
+
+Since this is our only connection between trigonometric functions and complex numbers, it seems reasonable to use this to define complex versions of $\cos(z)$ and $\sin(z)$.
+
+\begin{defbo}{Trigonometric Functions}{trigFunc}\index{Function!trigonometric} The complex differentiable functions $\cos(z)$ and $\sin(z)$ are defined by:
+$$\cos(z) = \frac{e^{iz} + e^{-iz}}{2}$$
+$$\sin(z) = \frac{e^{iz} - e^{-iz}}{2i}$$
+
+The other trigonometric functions $\tan(z)$, $\sec(z)$, $\csc(z)$, and $\cot(z)$ are defined exactly how you would expect.
+\end{defbo}
+
+Just like for our complex exponential, notice that if $z = x\in \R$, then $\cos(z)$ is exactly the real cosine function $\cos(x)$, and similarly for $\sin(z)$. So this isn't totally unreasonable.
+
+
+Many of the usual properties of the real trigonometric functions are still satisfied by these complex functions as well. For example:
+
+\begin{ex}{}{} We know that the real function $\cos(x)$ is $2\pi$ periodic. I.e., $\cos(x) = \cos(x + 2\pi)$. This is still true over $\C$.
+
+To see this, note that:
+$$\cos(z + 2\pi) = \frac{e^{i(z + 2\pi)} + e^{-i(z + 2\pi)}}{2} = \frac{e^{iz}e^{i2\pi} + e^{-iz}e^{-i2\pi}}{2} = \frac{e^{iz} + e^{-iz}}{2} = \cos(z)$$
+\end{ex}
+
+However, these complex functions can have some wildly different behavior as well.
+
+\begin{ex}{}{} True or false: $-1 \le |\sin(z)| \le 1$ for any $z\in \C$.
+
+As we saw in class, when looking at $\sin(iy)$, we see that for $y$ very large, $|\sin(iy)|$ is very large. In fact, $|\sin(iy)| \approx \frac{e^{|y|}}{2}$.
+
+In fact, the range of $\sin(z)$ is actually $\C$!
+
+\end{ex}
+
+\begin{ex}{}{} Find all solutions to $\sin(z) = 1$.
+
+We are looking for all $z$ for which $\sin(z) = \frac{e^{iz} - e^{-iz}}{2i} = 1$. Notice that this is equivalent to solving $e^{iz} - e^{-iz} = 1$. As we saw in example \ref{exa:hardexpo}, the solutions to this are precisely $z = \frac{\pi}{2} + 2k\pi$ for $k\in \Z$. So the only solutions to $\sin(z) = 1$ are real solutions.
+
+\end{ex}
+
+
+
+
+
+Do we also have a corresponding notion of a complex logarithm?
+
+\subsection{The Complex Logarithm}
+
+To begin, what is a logarithm? What does it mean to say that $w$ is a logarithm for $z$?
+
+\begin{defbo}{Logarithms}{logarithm}\index{Logarithm} 
+Let $z\in \C$. We say that $w$ is a logarithm for $z$ if $e^w = z$.
+\end{defbo}
+
+We've already seen an example of finding a logarithm. Last class, we showed that the solutions to $e^{z} = 1 + 4i$ are of them form $z = \ln(\sqrt{17}) + i(\arctan(4) + 2k\pi)$ for $k\in \Z$. So, $1 + 4i$ has many logarithms. These are precisely the $z$ listed above.
+
+
+Is there a general formula for finding the logarithms of $z\in \C$, or do we need to do it by hand each time we wish to solve $e^z = w$?
+
+\begin{thmbo}{Calculating Logarithms}{logCalc}
+ Let $z = re^{i\theta}$ with $z\ne 0$. Then the logarithms of $z$ are the complex numbers $\ln(r) + i(\theta + 2k\pi)$, where $k\in \Z$. Put another way, $\log(z) = \ln|z| + i\arg(z)$, remembering that we mean this as multi-valued functions.
+
+
+If $z = 0$, then $z$ has no logarithms.
+\end{thmbo}
+
+\begin{proof} First, we handle the situation where $z\ne 0$. Suppose $w = a +bi$ and $e^w = z$. Then:
+$$e^ae^{ib} = re^{i\theta}$$
+
+Taking the modulus of both sides, we see that $e^a = r$, and so $a = \ln(r)$, which is defined since $r\ne 0$.
+
+Now, we can see that $re^{ib} = z$, and so $b$ is an argument for $z$. As we have shown before, this means that $b = \theta + 2k\pi$ for some $k\in Z$.
+
+As for $z = 0$, notice that $|e^w| = e^a \ne 0$. However, $|z| = 0$. So, we cannot have $e^w = z$.
+
+\end{proof}

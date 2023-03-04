@@ -1,0 +1,91 @@
+\section*{Chapter 2 Problems}
+\addcontentsline{toc}{section}{Chapter 2 Problems}
+
+\begin{enumerate}
+\item Find the following limits:
+
+\begin{enumerate}[a)]
+\item $\lim_{z \rightarrow 1} \frac{z^2 - 3z + 2}{z - 1}$
+\item $\lim_{z \rightarrow 0} Arg(z)$
+\item $\lim_{z \rightarrow 0} \frac{|z|}{z}$
+\item $\lim_{z \rightarrow i} Arg(z^2) $
+\item $\lim_{z \rightarrow 3} \frac{z}{\RE(z)} $
+\item $\lim_{z \rightarrow 3} \frac{z}{\IM(z)} $
+\end{enumerate}
+
+\item Find the branch cuts for the following functions:
+
+\begin{enumerate}[a)]
+\item $\Log(iz)$
+\item $(z^3 + 1)^{\frac{1}{2}}$, for the principal square root.
+\item $\Log(\Log(z))$
+\item $(\Log(z))^\frac{1}{2}$, for the principal square root.
+\item $(z^2 - z)^{\frac{1}{2}}$ defined using $\log_0(z)$ where $\log_0(z)$ is the logarithm defined for $\arg(z)\in (2\pi, 4\pi)$. 
+\item $2^z$, defined using $\log_0(z)$ where $\log_0(z)$ is the logarithm defined for $\arg(z)\in (\pi, 3\pi)$. 
+\end{enumerate}
+
+
+\item Show that each of the following functions are holomorphic on their domains using theorem \ref{thm:holocond}. (Seriously, use the theorem. On your test, if we say to use C-R and you don't do this you won't get the marks.)
+
+\begin{enumerate}[a)]
+\item $f(z) = \frac{1}{z}$
+\item $f(z) = e^{z + 1}$
+\item $f(z) = e^{(z^2)}$
+\item $f(z) = \frac{z^2}{z-1}$
+\item $f(z) = \sin(z)$
+\item $f(z) = \cos(z)$
+\item $f(z) = \sinh(z)$
+\end{enumerate} 
+
+\item For each of the functions in the previous question, find their derivatives. Do not use differentiation rules (i.e., the sum, product, quotient, or chain rules). You were given a formula in lecture to find the derivative of a holomorphic function.
+
+\item Let $f(z) = 2^z$ be the principal branch of $2^z$. Use the Cauchy-Riemann equations to show that $f(z)$ is differentiable everywhere and to find $f'(z)$.
+
+\item Let $f(z) = i^z$ be the principal branch of $i^z$. Use the Cauchy-Riemann equations to show that $f(z)$ is differentiable anywhere and to find $f'(z)$.
+
+\item Let $a\in\C$. Show that for any branch of the function $f(z) = a^z$, $f(z)$ is always differentiable everywhere. Find $f'(z)$.
+
+\item Find a formula for the principal $\Arccos$ and $\Arcsin$ by solving $\cos(w)=z$ and $\sin(w) = z$.
+
+\item Show that the branch cut for $\Log(z^2 - 1)$ is $[-1,1] \cup \{iy|y\in\C\}$.
+
+\item We know that $\Log(z^2 - 1)$ is defined when $z\not\in [-1,1] \cup \{iy|y\in \C\}$. Let's finish up finding the domain of $\Arccos(z)$.
+
+\begin{enumerate}[a)]
+\item What condition of $z + (z^2 - 1)^{1/2}$ ensures that $\Arccos(z)$ exists? (Don't peek.)
+\item Suppose $z + (z^2 - 1)^{1/2} = r$ is in $(-\infty,0]$. Rearrange this and show that we must have $z = \frac{r}{2} + \frac{1}{2r}$.
+
+\item Now, $z$ is a real number and is a function of the real number $r \le 0$. Show that $z \in (-\infty,-1]$ by maximizing $z$ as a function of $r$.
+
+\item Show that if $z \in (-\infty,-1]$ that $z + (z^2 - 1)^{1/2} \in (-\infty,0]$.
+
+\item Conclude that $\Log(z + (z^2 - 1)^{1/2})$ is defined when $(z^2 - 1)^{1/2}$ is defined and $z \not\in (-\infty,-1]$.
+
+\end{enumerate}
+
+\item Calculate each of the following:
+
+\begin{enumerate}[a)]
+\item $\Arccos(2)$
+\item $\Arcsin(i)$
+\end{enumerate}
+
+\item Which of the following functions are harmonic?
+
+\begin{enumerate}[a)]
+\item $u(x,y) = xy^2$
+\item $u(x,y) = 4x^2 - 2xy - 4y^2$
+\item $u(x,y) = x^3 - 2xy^2$
+\item $u(x,y) = x^3 - 3xy^2$
+\item $u(x,y) = x^4 - 6x^2y^2 + y^4$
+\item $u(x,y) = \frac{2x}{x^2 + y^2}$
+\item $u(x,y) = \arctan(y/x)$
+\item $u(x,y) = \ln(x^2 + y^2)$
+\end{enumerate}
+
+\item For each of the harmonic functions in the previous question, find a harmonic conjugate.
+
+\item Suppose $f = u + iv$ is analytic. Then $u$ and $v$ are harmonic conjugates. Is it true that $g = v + iu$ is analytic?
+
+
+\end{enumerate}

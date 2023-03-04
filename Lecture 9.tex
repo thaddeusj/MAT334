@@ -1,0 +1,130 @@
+\section{Tuesday, June 4}
+
+\todaybox{We we'll briefly talk about differentiation rules, and use them to compute a few derivatives whose answers we already know. You should pay special attention to the $z^{\alpha}$ example, since it involves worrying about branches.
+
+We will also start talking about harmonic functions.}
+
+Functions which are analytic on $\C$ are special. They have some very nice properties. For example, their range is always either $\C$ or $\C\setminus\{z_0\}$ for some $z_0\in\C$. This is called Picard's Little Theorem. We won't be using that in this course, but it's a good example of why these functions are special. As such, they have a name:
+
+\begin{defbo}{Entire Function}{entire}\index{Entire Function}
+A function which is analytic on $\C$ is called {\bf entire}.
+\end{defbo}
+
+We'll talk more about entire functions as the course moves on.
+
+How do we compute derivatives in practice? After all, computing partials and then turning them into a function of $z$ can be quite nasty. Is there a better way?
+
+\begin{thmbo}{The Derivative Rules}{derivrules}
+Suppose $f,g$ are differentiable at $z_0$ and $h$ is differentiable at $f(z_0)$. Then:
+
+\begin{itemize}
+\item The constant multiple rule: $\omega f(z_0) = \omega f'(z_0)$ for any $\omega \in \C$.
+\item The sum rule: $(f+g)'(z_0) = f'(z_0) + g'(z_0)$.
+\item The product rule: $(fg)'(z_0) = f'(z_0)g(z_0) + f(z_0)g'(z_0)$.
+\item The quotient rule: if $g(z_0) \ne 0$, then $\left(\frac{f}{g}\right)'(z_0) = \frac{f'(z_0)g(z_0) - f(z_0)g'(z_0)}{g(z_0)^2}$.
+\item The chain rule: $(h\circ f)'(z_0) = h'(f(z_0))f'(z_0)$.
+\end{itemize}
+\end{thmbo}
+
+Combining this with the basic derivatives we know: $z$, $e^z$, $\Log(z)$, etc. allows us to figure out the derivatives of basically any function we want.
+
+\begin{ex}{}{} Find the derivative of $z^n$.
+
+Well, we could us the definition of the derivative in combination with the binomial theorem.
+
+Instead, let's use the product rule and induction. We claim that if $f(z) = z^n$, then $f'(z) = nz^{n-1}$ for integers $n \ge 0$.
+
+\paragraph{Base case:} When $n = 0$, we know that $f(z) = 1$, so $f'(z) = 0$. After all, $\frac{f(z + h) - f(z)}{h} = \frac{1-1}{h} = 0$ for $h\ne 0$. So the formula holds when $n = 0$.
+
+For $n = 1$, we have $\lim_{h\rightarrow 0} \frac{(z+h) - z}{h} = \lim_{h\rightarrow 0} \frac{h}{h} = 1$. So the formula also holds for $n = 1$.
+
+\paragraph{Induction hypothesis:} Suppose the derivative of $z^n$ is $nz^{n-1}$ for some $n\ge 0$.
+
+\paragraph{Induction step:} Consider $z^{n+1}$. Let $f(z) = z^n$ and $g(z) = z$. Then, by the product rule:
+
+$$\frac{d\, z^{n+1}}{d\,z} = f'(z)g(z) + f(z)g'(z) = (nz^{n-1})z + z^n(1) = nz^n + z^n = (n+1)z^n = (n+1)z^{(n+1)-1}$$
+
+As such, the formula holds for $n+1$ as well. By induction, our claim holds for all integers $n\ge 0$.
+
+\end{ex}
+
+What about non-integer powers? First, we need to find the derivative of any branch of $\log(z)$.
+
+\begin{ex}{}{} Suppose $\log_0(z)$ is a continuous branch of $\log(z)$, given by taking $\arg(z) \in (\theta,\theta + 2\pi)$. We have already shown that $\Log(z)$ is differentiable. A similar argument will work here. So we'll move ahead with finding the derivative.
+
+We know that $e^{\log_0(z)} = z$. By the chain rule:
+$$1 = \frac{d\,z}{d\,z} = \frac{d \, e^{\log_0(z)}}{d\, z} = e^{\log_0(z)}\frac{d\, \log_0(z)}{d\,z}$$
+
+So, $1 = z\frac{d\,\log_0(z)}{d\,z}$. So the derivative of $\log_0(z)$ is $\frac{1}{z}$.
+\end{ex}
+
+\begin{ex}{}{} Find the derivative of any branch of $z^{\alpha}$ where $\alpha\in \C$.
+
+By definition, $f(z) = z^{\alpha} = e^{\alpha\log_0(z)}$, where $\log_0(z)$ is the branch of the logarithm corresponding to the branch of $z^{\alpha}$.
+
+By the chain rule, $f'(z) = e^{\alpha \log_0(z)} (\alpha\log_0(z))' = \frac{\alpha e^{\alpha\log_0(z)}}{z}$. Can we simplify this at all?
+\begin{align*}\frac{\alpha e^{\alpha\log_0(z)}}{z} &= \frac{\alpha e^{\alpha \log_0(z)}}{e^{\log_0(z)}}\\
+&= \alpha e^{\alpha \log_0(z) - \log_0(z)}\\
+&= \alpha e^{(\alpha - 1)\log_0(z)}\\
+&=\alpha z^{\alpha-1}
+\end{align*}
+
+So, the formula we expect works not just for integers, but for any complex exponent.
+\end{ex}
+
+\subsection{Harmonic Functions}
+
+Before we move on, we have one more fact about analytic functions that we're going to discuss. It turns out, they're very closely related to harmonic functions.
+
+
+
+\begin{defbo}{Harmonic Function}{harmonic}\index{Harmonic Function}
+Let $U$ be an open set in $\C$. A function $u:U\rightarrow \R$ is harmonic if it satisfies that:
+$$u_{xx} + u_{yy} =0$$
+
+This is sometimes also written as: $\Delta u = 0$ or $\nabla^2\cdot u = 0$. This is called Laplace's equation.
+\end{defbo}
+
+Now, it is a very nice fact about holomorphic functions $f = u + iv$ that $u$ and $v$ are actually second differentiable, and $u_{xy}, u_{yx}, v_{xy},$ and $v_{yx}$ are all continuous. In fact, we will see later that if $f$ is holomorphic, then $f$ is infinitely differentiable. For now, we will take this for granted.
+
+\begin{thmbo}{}{harmonicparts} Suppose $f$ is an analytic function on $U$. Then $u$ and $v$ are harmonic functions on $U$.\end{thmbo}
+
+\begin{proof} By our discussion above, we know that we can apply Clairaut's theorem to get:
+\begin{align*}u_{xx} &= \frac{\partial u_x}{\partial x}\\
+& = \frac{\partial v_y}{\partial x} \hspace{40pt} \text{(by C-R)}\\
+&= v_{xy} = v_{yx} \hspace{50pt} \text{(by Clairaut)}\\
+&= \frac{\partial v_x}{\partial y} = \frac{\partial (-u_y)}{\partial y} \hspace{20pt} \text{(by C-R)}\\
+&= -u_{yy}
+\end{align*}
+
+So $u_{xx} + u_{yy} = -u_{yy} + u_{yy} = 0$, and $u$ is harmonic. A similar argument shows that $v$ is also harmonic.
+\end{proof}
+
+\begin{ex}{}{} Does there exist a holomorphic function $f = u + iv$ so that $u(x,y) = x^2$?
+
+This theorem tells us that if such a function $f$ exists, then $u(x,y) = x^2$ must be harmonic. However:
+$$u_{xx} = 2$$
+$$u_{yy} = 0$$
+
+So $\Delta u = 2 \ne 0$. Since $u$ is not harmonic, no such $f$ exists.
+\end{ex}
+
+Alright, so the real (and imaginary) parts of an analytic function are harmonic. Is the converse true? I.e., does every harmonic function appear as the real or imaginary part of an analytic function? It turns out that the answer is yes! Let's see an example.
+
+\begin{ex}{}{} Let $u(x,y) = 3x^2y - y^3$. Find an analytic function $f(z)$ whose real part is $u(x,y)$.
+
+First, notice that $u$ is harmonic. We won't use this explicitly anywhere, but our goal is to demonstrate that harmonic functions do appear as the real parts of an analytic function. 
+
+If $f(z)$ is such a function, it must satisfy the Cauchy-Riemann equations. Let $f(z) = u + iv$. Then:
+$$v_y = u_x = 6xy$$
+
+As such, we can see that $v(x,y) = \int u_xdy = 3xy^2 + g(x)$ for some function $g(x)$. Why do we get this $g(x)$? Well, we're integrating in terms of $y$. That only recovers $y$ information. In particular, it misses any parts of $v$ that depend only on $x$! So we need to assume there is some part of $v$ that depends only on $x$, and then try to determine what that is.
+
+To do so, let's look at $v_x$. We have $v_x = 3y^2 + g'(x)$. However, by Cauchy-Riemann, we know that:
+$$3y^2 + g'(x) = v_x = -u_y = -3x^2 + 3y^2$$
+
+As such, $g'(x) = -3x^2$, and so $g(x) = -x^3 + C$ for some constant $C$.
+
+So, we find that $f(z) = u + iv = (3x^2y - y^3) + i(3xy^2 - x^3 + C) = i(-x^3 -i3x^2y + 3xy^2 +iy^3) + iC$. With some fiddling, one can notice that $x^3 + i3x^2y - 3xy^2 -iy^3 = (x+iy)^3 = z^3$. As such, $f(z) = -iz^3 + iC$ for some $C\in \R$.
+
+\end{ex}

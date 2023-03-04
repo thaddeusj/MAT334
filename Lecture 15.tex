@@ -1,0 +1,104 @@
+\section{Tuesday, July 9}
+
+\todaybox{Today, we prove a consequence of the Cauchy Integral Formula: every bounded entire function is constant. This is Liouville's theorem.
+
+We then use Liouville's theorem to prove a fairly important result, the Fundamental Theorem of Algebra.}
+
+Entire functions behave quite differently than we're used to. For example, our intuition says that the function $f(z) = \sin(z)$ should be bounded. After all, for $x \in \mathbb{R}$, $-1 \le \sin(x) \le 1$. However, we've seen that $\sin(z)$ is not a bounded function!
+
+This is an example of a much more general phenomenon:
+
+\begin{thmbo}{Liouville's Theorem}{Lioville}\index{Liouville's Theorem} Every bounded, entire function is constant.\end{thmbo}
+\newpage
+\begin{proof} ~
+\paragraph{Proof idea:} To show $f(z)$ is constant, we can show that $f'(z) = 0$ for all $z \in \C$.
+
+To connect $f'(z)$ to the fact that $f(z)$ is bounded, we go through Cauchy's integral formula, which connects $f'(z)$ to $f(z)$.
+
+\paragraph{Proof:} 
+Suppose $f(z)$ is bounded and entire, but is non-constant. Let $M \in \mathbb{R}$ such that $|f(z)| \le M$ for all $z\in \C$.
+
+Let $\gamma_R$ be the circle of radius of circle $R$, centered at $a$, travelled once counter-clockwise. Since $f(z)$ is entire, Cauchy's integral formula tells us that:
+
+$$2\pi i f'(a) = \int_{\gamma_R} \frac{f(z)}{(z-a)^2}dz$$
+
+We would like to show this integral is $0$. However, we don't have any way to calculate it. Instead, let's estimate:
+
+$$|2\pi i f'(a)| = \left| \int_{\gamma_R} \frac{f(z)}{(z-a)^2}dz\right| \le \int_{\gamma_R} \left|\frac{f(z)}{(z-a)^2}\right|dz = \int_{\gamma_R} \frac{|f(z)|}{|z-a|^2}dz$$
+
+Now, since $z$ is on $\gamma_R$, which is the circle of radius $R$ centered at $a$, we see that $|z-a| = R$. So:
+
+$$|2\pi i f'(a)| \le \int_{\gamma_R} \frac{|f(z)|}{R^2}dz$$
+
+Now, by M-L estimation (theorem \ref{thm:mlest}), we see that:
+
+$$|2\pi i f'(a)| \le \frac{2\pi RM}{R^2} = \frac{2\pi M}{R}$$
+
+
+However, notice this is true for all $R$. So by the squeeze theorem:
+
+$$0 \le |2\pi i f'(a)|\le \lim_{R\rightarrow \infty} \frac{2\pi M}{R} = 0$$
+
+As such, $2\pi i f'(a) = 0$. So $f'(a) = 0$. Since $a$ was arbitrary, we have shown that $f'(z) = 0$ for all $z$, so that $f(z)$ is a constant function.
+
+\end{proof}
+
+This is a fairly strong statement. It is also a favourite for coming up with interesting proof questions on tests. Let's see an example:
+
+\begin{ex}{}{} Suppose $f(z)$ is entire and $f(z)\ne kz$ for any $k$. (Meaning the function $f(z)$ is not equal to the function $kz$.) Then there exists $w\in \C$ with $|f(w)|\le|w|$.
+
+Suppose $|z| < |f(z)|$ for all $z\in \C$. Consider the function $g(z) = \frac{z}{f(z)}$. Since $0 \le |z| < |f(z)|$ for all $z\in \C$, we have that $f(z)\ne 0$ for all $z$. This means that $g(z)$ is entire.
+
+However, we also know that $|g(z)| = \frac{|z|}{|f(z)|} < 1$ for all $z\in \C$. So by Liouville, $g(z)$ is constant. In particular, $\frac{z}{f(z)} = k$ for some $k\in \C$. I.e., $f(z) = kz$. A contradiction. Therefore, $|f(z)|\le |z|$ for some $z\in \C$.
+
+\end{ex}
+
+We can also use Liouville's theorem to prove 
+
+
+\begin{thmbo}{The Fundamental Theorem of Algebra}{FTA}\index{Fundamental Theorem of Algebra}
+Every non-constant complex polynomial has a complex root.
+\end{thmbo}
+
+\begin{proof}~ \paragraph{Proof Idea:} To show $p(z)$ has roots, we look at $\frac{1}{p(z)}$. We use Liouville to show that if $p(z)$ has no roots, then this new function is actually constant. That contradicts that $p(z)$ is non-constant.
+
+\paragraph{Proof:} Let $p(z)$ be a non-constant complex polynomial. We proceed by contradiction. Assume $p(z) \ne 0$ for all $z$.
+
+Consider $f(z) = \frac{1}{p(z)}$. Since $p(z)$ is entire and non-zero, $f(z)$ is also entire. We claim that $f(z)$ is bounded, so that we can use Liouville's theorem.
+
+We will handle this in two pieces: show $p(z)$ is bounded on some large closed circle, and show it's bounded outside that circle as well.
+
+However, we need to figure out what this circle actually is. To do that, we're going to look at $\lim_{z\rightarrow \infty} f(z)$.
+
+
+\paragraph{Limit:} Let $p(z) = a_nz^n + \dots + a_1z + a_0$. Then using the triangle inequality, we find that $|p(z)| \ge |a_n||z^n| - (|a_{n-1}||z|^{n-1} + \dots + |a_0|)$. Suppose $|z| = R$. Then:
+
+$$\lim_{z\rightarrow \infty} |p(z)| \ge \lim_{z\rightarrow \infty} |a_n|R^n - (|a_{n-1}|R^{n-1} + \dots + |a_0|) = \infty$$
+
+This tells us that $\lim_{z\rightarrow \infty} p(z) = \infty$, and so $\lim_{z\rightarrow \infty} f(z) = 0$.
+
+
+\paragraph{Circle} We can use this limit fact to find a large circle such that $f(z)$ is bounded outside that circle. Remember, $\lim_{z\rightarrow \infty} f(z) = L$ means that:
+
+$$\forall \varepsilon>0, \exists R, \text{ such that } |z| > R \Rightarrow |f(z) - L| < \varepsilon$$
+
+Choose $\varepsilon = 1$. Since $\lim_{z\rightarrow \infty} f(z) = 0$, there exists some radius $R$ such that when $|z| > R$, we have $|f(z) - 0| < 1$. I.e., $|f(z)| < 1$.
+
+So $f(z)$ is bounded outside the disc $|z| \le R$, by definition.
+
+\paragraph{Inside the Circle} So what happens for $|z| \le R$? 
+
+We're going to use a technical result. The proof for which is annoying, and which we will not be covering in class. For completeness, it will appear in an appendix at the end of today's notes. This is the complex version of the Extreme Value Theorem.
+
+\begin{lem} Suppose $f(z)$ is a continous complex function. If $C$ is a closed and bounded subset of $\C$, then $f(C) = \{f(z)|z\in C\}$ is bounded.\end{lem}
+
+We know that $\{z||z|\le R\}$ is closed and bounded, and that $f(z)$ is continuous (since it is entire). So by EVT, $f(z)$ is also bounded on $|z| \le R$. Say $|f(z)| \le M$.
+
+\paragraph{All Together} So, if $z\in \C$, then $|z| \le R$ or $|z| > R$. If $|z| \le R$, then $|f(z)| \le M$. And if $|z| > R$, then $|f(z)| < 1$. So $|f(z)| \le \max\{1,M\}$.
+
+As such, $f(z)$ is a bounded function. It is also entire. And so is constant.
+
+But then $p(z) = \frac{1}{f(z)}$ is also constant, contradicting that $p(z)$ is non-constant. Therefore, $p(z)$ has roots.
+
+\end{proof}
+

@@ -1,0 +1,142 @@
+\section{Tuesday, July 23}
+
+\todaybox{Today we'll discuss how to identify poles and their order, using L'Hopital's rule.}
+
+How do we compute an integral such as $\int_{|z| = 4} \frac{z}{\sin(z)}dz$? This function has singularities $k\pi$ for $k\in \Z$, and so has three singularities inside the circle: $0, \pm \pi$. Now, as in our last example from the previous lecture, $z = 0$ is removable. But what about $\pm \pi$? Are they poles, or essential? How do we tell?
+
+Recall, definition \ref{def:pole} tells us that $z_0$ is a pole of order $n$ for $f(z)$ if we can write $f(z) = \frac{g(z)}{(z-z_0)^n}$ where $g(z)$ is analytic on a ball around $z_0$ and $g(z_0) \ne 0$. In particular, this tells us that $g(z) = (z-z_0)^nf(z)$ for $z \ne z_0$. I.e., $(z-z_0)^nf(z)$ has a removable singularity at $z = z_0$!
+
+So, that means that $g(z) = \begin{cases} (z-z_0)^nf(z), &z\ne z_0\\ \lim_{z\rightarrow z_0} (z-z_0)^nf(z), &z = z_0\end{cases}$. As such, if $\gamma$ is a circle centered at $z_0$ which encircles no other singularities (i.e., $f(z)$ is analytic on $D = B_r(z_0)\setminus\{z_0\}$ where $\gamma$ is inside $D$), then:
+
+$$\int_{\gamma} f(z)dz = \int_{\gamma} \frac{(z-z_0)^nf(z)}{(z-z_0)^n}dz \stackrel{CIF}{=} \frac{2\pi i}{(n-1)!}g^{(n-1)}(z_0)$$
+
+That means we need to be able to compute $\lim_{z\rightarrow z_0} (z-z_0)^nf(z)$. This is a $0\times \infty$ type of limit, which is precisely the setup for L'Hopital's rule. 
+
+However, to do so we need to discuss different types of zeroes of functions.
+
+\begin{defbo}{Zero of order $n$}{}\index{Zero of order $n$}
+Suppose $f(z)$ is analytic on a domain $D$ and $z_0\in D$. Then $z_0$ is a zero of order $n$ if:
+
+$$f(z_0) = f'(z_0) = \dots = f^{(n-1)}(z_0) = 0$$
+
+Zeroes of order $1$ are called simple zeroes.
+\end{defbo}
+
+We now state and prove one version of L'Hopital's rule.
+
+\begin{thmbo}{L'Hopital's rule for $\frac{0}{0}$ forms}{}\index{L'Hopital's Rule}
+Suppose $f(z)$, $g(z)$ are analytic on a domain $D$, and $z_0\in D$. Further, suppose that $z_0$ is a zero of order $m$ for $f(z)$ and a zero of order $k$ for $g(z)$. Then:
+
+\begin{itemize}
+\item If $m > k$, then $\lim_{z\rightarrow z_0} \frac{f(z)}{g(z)} = 0$.
+\item If $m < k$, then $\lim_{z\rightarrow z_0} \frac{f(z)}{g(z)} = \infty$.
+\item If $m = k$, then $\lim_{z\rightarrow z_0} \frac{f(z)}{g(z)} = \frac{f^{(m)}(z_0)}{g^{(m)}(z_0)}$.
+\end{itemize}
+\end{thmbo}
+
+
+\begin{proof} Since $f(z), g(z)$ are analytic on $D$ and $z_0\in D$, we then $f(z),g(z)$ have power series centered at $z_0$ with positive radius of convergence. In particular, there exists $R> 0$ such that on $B_R(z_0)$ we have:
+
+$$f(z) = \sum_{n = 0}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n$$
+$$g(z) = \sum_{n = 0}^\infty \frac{g^{(n)}(z_0)}{n!}(z-z_0)^n$$
+
+However, we know that $z_0$ is a zero of order $m$ for $f$ and a zero of order $k$ for $g$. As such:
+
+$$f(z) = \sum_{n = m}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n$$
+$$g(z) = \sum_{n = k}^\infty \frac{g^{(n)}(z_0)}{n!}(z-z_0)^n$$
+
+
+We now look at the quotient, in our various cases.
+
+\begin{case}$m > k$
+
+Suppose $m > k$. Then:
+
+$$\frac{f(z)}{g(z)} = \frac{\frac{1}{(z-z_0)^k}}{\frac{1}{(z-z_0)^k}}\frac{\sum_{n = m}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n}{\sum_{n = k}^\infty \frac{g^{(n)}(z_0)}{n!}(z-z_0)^n} = \frac{\sum_{n = m}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^{n - k}}{\sum_{n = k}^\infty \frac{g^{(n)}(z_0)}{n!}(z-z_0)^{n - k}}$$
+
+Notice that the denominator has a constant term of $\frac{g^{(k)}(z_0)}{k!}$, which is non-zero. In the numerator, the powers of $(z-z_0)$ that occur are $m-k$, $m-k+1$, etc. Notice that these are all positive powers. As such:
+
+$$\lim_{z\rightarrow z_0} \frac{f(z)}{(z-z_0)^k} = 0$$
+$$\lim_{z\rightarrow z_0} \frac{g(z)}{(z-z_0)^k} = \frac{g^{(k)}(z_0)}{k!}$$
+
+This gives that $\lim_{z\rightarrow z_0}\frac{f(z)}{g(z)} = 0$.
+
+\end{case}
+
+\begin{case}$m < k$
+
+Suppose $m < k$. Then:
+
+
+$$\frac{f(z)}{g(z)} = \frac{\frac{1}{(z-z_0)^m}}{\frac{1}{(z-z_0)^m}}\frac{\sum_{n = m}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n}{\sum_{n = k}^\infty \frac{g^{(n)}(z_0)}{n!}(z-z_0)^n} = \frac{\sum_{n = m}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^{n - m}}{\sum_{n = k}^\infty \frac{g^{(n)}(z_0)}{n!}(z-z_0)^{n - m}}$$
+
+Notice that the denominator has a no constant term. And the numerator has a constant term of $\frac{f^{(m)}(z_0)}{m!}$.
+
+$$\lim_{z\rightarrow z_0} \frac{f(z)}{(z-z_0)^m} = \frac{f^{(m)}(z_0)}{m!}$$
+$$\lim_{z\rightarrow z_0} \frac{g(z)}{(z-z_0)^m} = 0$$
+
+This gives that $\lim_{z\rightarrow z_0}\frac{f(z)}{g(z)} = \infty$.
+\end{case}
+
+\begin{case}$m = k$
+
+Performing the same argument again, this time we have that
+
+$$\lim_{z\rightarrow z_0} \frac{f(z)}{(z-z_0)^m} = \frac{f^{(m)}(z_0)}{m!}$$
+$$\lim_{z\rightarrow z_0} \frac{g(z)}{(z-z_0)^m} = \frac{g^{(m)}(z_0)}{m!}$$
+
+And so:
+
+$$\lim_{z\rightarrow z_0} \frac{\frac{f(z)}{(z-z_0)^m}}{\frac{g(z)}{(z-z_0)^m}} = \frac{\frac{f^{(m)}(z_0)}{m!}}{\frac{g^{(m)}(z_0)}{m!}} = \frac{f^{(m)}(z_0)}{g^{(m)}(z_0)}$$
+
+\end{case}
+
+\end{proof}
+
+How does this help us?
+
+\begin{ex}{}{} Find $\int_{|z| = 4} \frac{z}{\sin(z)}dz$.
+
+By the deformation theorem:
+
+$$\int_{|z| = 4}\frac{z}{\sin(z)}dz = \int_{|z| = 1} \frac{z}{\sin(z)}dz + \int_{|z-\pi| = 1} \frac{z}{\sin(z)}dz + \int_{|z+\pi| = 1}\frac{z}{\sin(z)}dz$$
+
+So how do we handle each of these integrals? Well, let's try to see if they're removable or poles.
+
+For $z_0 = 0$, we have that $\lim_{z\rightarrow 0} \frac{z}{\sin(z)} = \frac{1}{\cos(0)} = 1$ by L'Hoptial. So $z_0 = 0$ is removable and the first integral is $0$.
+
+For $z_0 = \pi$, we see that $\lim_{z\rightarrow 0} \frac{z}{\sin(z)} = \infty$ since the denominator is approaching $0$ but the numerator is not. Therefore, this is not removable.
+
+Is it a pole of order $1$? To see this, we check: $\lim_{z\rightarrow z_0} \frac{(z-\pi)z}{\sin(z)}$. Using L'Hopital's rule, we find that this is:
+
+
+$$\lim_{z\rightarrow z_0} \frac{(z-\pi)z}{\sin(z)} = \lim_{z\rightarrow \pi} \frac{2z - \pi}{\cos(z)} = -\pi$$
+
+So $\frac{z}{\sin(z)}$ has a pole of order $1$, and that $g(z) = \frac{(z-\pi)z}{\sin(z)}$ has a removable discontinuity which can be made analytic by setting $g(\pi) = -\pi$. As such:
+
+$$\int_{|z-\pi| = 1} \frac{z}{\sin(z)}dz = 2\pi ig(\pi) = -2\pi^2 i$$
+
+And for $z_0 = -\pi$, setting $g_2(z) = \frac{(z + \pi)z}{\sin(z)}$ gives:
+
+$$\lim_{z\rightarrow 0} g_2(z) = \frac{-\pi}{-1} = \pi$$
+
+And so:
+
+$$\int_{|z-\pi| = 1} \frac{z}{\sin(z)}dz = 2\pi ig_2(\pi) = 2\pi^2 i$$
+
+All together, this gives us that:
+
+$$\int_{|z| = 4}\frac{z}{\sin(z)}dz =0$$
+\end{ex}
+
+This example shows us how to handle simple poles. What about poles of higher order? Well, we could use this argument. However, once we develop Laurent series, we can give a slightly more straightforward formula.
+
+To end, let's talk about how to recognize the order of a pole intuitively. You will have a homework problem asking you to prove the following:
+
+\begin{thmbo}{}{} Suppose $f(z)$ has a zero of order $n$ at $z_0$ and $g(z)$ has a zero of order $m$ at $z_0$. Then:
+
+\begin{itemize}
+\item If $n \ge m$, then $\frac{f(z)}{g(z)}$ has a removable discontinuity at $z_0$.
+\item If $n < m$, then $\frac{f(z)}{g(z)}$ has a pole of order $m-n$ at $z_0$.
+\end{itemize}
+\end{thmbo}

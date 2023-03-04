@@ -1,0 +1,200 @@
+\section{Thursday, July 11}
+
+\todaybox{Having discussed how to integrate around poles, we need to handle our other two kinds of disconinuities. Both of these will require us to discuss power series.
+
+We begin today with a brief refresher on sequences and series.}
+
+\begin{defbo}{Sequence}{}\index{Sequence} A sequence in $\C$ is an infinite list of complex numbers $a_k,a_{k+1},\dots$. We will write this as $(a_n)_{n = k}^\infty$.
+
+We say that the sequence $(a_n)_{n = k}^\infty$ converges to $L$, or that $\lim_{n\rightarrow \infty} a_n = L$, or even that $a_n \rightarrow L$, if:
+
+$$\forall \varepsilon > 0, \exists N\in \N \text{ such that } n > N \implies |a_n - L|< \varepsilon$$
+
+If a sequence does not converge to any limit $L$, then it diverges.
+\end{defbo}
+
+We aren't going to spend a lot of time discussing sequences. We only care about them in the context of series.
+
+\begin{defbo}{Series}{}\index{Infinite Series} Let $(a_n)_{n = k}^\infty$. Define a new sequence $(S_n)_{n = k}^\infty$ by:
+
+$$S_n  = \sum_{j = k}^n a_j$$
+
+This is called the $n$th partial sum of the sequence $(a_n)_{n = k}^\infty$. The infinite series $\sum_{n = k}^\infty a_n$ is defined to be $\sum_{n = k}^\infty a_n = \lim_{n \rightarrow \infty} S_n$, if the sequence converges. In that case, we say the sequence converges as well.
+\end{defbo}
+
+Let's look at a couple of examples of convergence.
+
+\begin{ex}{}{}\index{Series!geometric}\index{Geometric series} The {\bf geometric series} $\sum_{n = 0}^\infty z^n$ converges to $\frac{1}{1-z}$ if $|z| < 1$ and diverges if $|z| > 1$.
+
+Consider the $n$th partial sum:
+
+$$S_n = 1 + z + z^2 + \dots + z^n$$
+
+This is a finite geometric series, which is equal to $\frac{1 - z^{n+1}}{1-z}$. To see this, notice that:
+
+\begin{align*}(1-z)(1+ z + \dots + z^n) &= (1-z) + z(1-z) + z^2(1-z) + \dots + z^n(1-z) \\
+&= 1 - z + z - z^2 + z^2 - \dots - z^n + z^n - z^{n+1}\\
+&= 1-z^{n+1}
+\end{align*}
+
+So for $z\ne 1$, $S_n = \frac{1-z^{n+1}}{1-z}$. We now take the limit of this sequence:
+
+$$\lim_{n\rightarrow \infty} \frac{1 - z^{n+1}}{1-z} = \frac{1 - \lim_{n \rightarrow \infty} z^{n+1}}{1-z}$$
+
+If $|z| < 1$, notice that $|z^{n+1}|\rightarrow 0$ (while we could show this formally, this is something you saw in first year calc.) Furthermore, if $|z| > 1$, then $|z^{n+1}|\rightarrow \infty$. This tells us that if $|z| < 1$ that $z^{n+1}\rightarrow 0$ and if $|z| > 1$ that $z^{n+1}\rightarrow \infty$. As such:
+
+$$\lim_{n\rightarrow \infty} S_n = \begin{cases} \frac{1}{1-z}, & |z| < 1\\\infty, &|z| > 1\end{cases}$$
+\end{ex}
+
+This example is going to be very useful. Make sure you know this formula.
+
+For a lot of series, actually calculating the limit can be quite hard. For example, how would you show that $\sum_{n = 0}^\infty \frac{2^n}{n!} = e^2$, or that $\sum_{k = 0}^\infty \frac{(-1)^k}{(2k+1)!} = \sin(1)$?
+
+For the moment, let's instead focusing on determining if a series converges at all. We begin by recalling a couple of convergence results that you should have already seen for $\R$.
+
+\begin{thmbo}{The Divergence Test}{}\index{Series!divergence test} If $\lim_{n\rightarrow \infty} a_n \ne 0$, then $\sum_{n = k}^\infty a_n$ diverges.
+
+The converse is false.
+\end{thmbo}
+\begin{proof} We prove the contrapositive instead. Suppose $\sum_{n = k}^\infty a_n$ converges.
+
+Notice that $a_n = S_n - S_{n-1}$. As such, $\lim_{n\rightarrow \infty} a_n = \lim_{n\rightarrow \infty} S_n - \lim_{n\rightarrow \infty} S_{n-1}$. Notice that the sequences $(S_n)_{n = k}^\infty$ and $(S_{n-1})_{n = k+1}^\infty$ have the same limit. Indeed, these are actually the same sequence, just indexed differently! So: 
+
+$$\lim_{n\rightarrow \infty} a_n = \sum_{n = k}^\infty a_n - \sum_{n = k}^\infty a_n = 0$$
+
+For the converse, we claim that $\sum_{n = 1}^\infty \frac{1}{n}$ diverges. The idea is to write the sum as:
+
+$$1 + \frac{1}{2} + \underbrace{\frac{1}{3} + \frac{1}{4}}_{< \frac{1}{4} + \frac{1}{4} = \frac{1}{2}} + \underbrace{ \frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8}}_{< \frac{4}{8} = \frac{1}{2}} + \dots$$
+
+More generally, notice that $\sum_{n = 2^k + 1}^{2^{k+1}} \frac{1}{n} > \sum_{n = 2^k + 1}{2^{k+1}} \frac{1}{2^{k+1}} = \frac{1}{2}$. As such:
+
+$$S_{2^{m+1}} = \sum_{n = 1}^{2^{m+1}} \frac{1}{n} =1 + \frac{1}{2} +  \sum_{k = 1}^m \sum_{n = 2^k + 1}^{2^{k+1}} \frac{1}{n} \ge 1 + \frac{1}{2} + \frac{m}{2}$$
+
+Therefore, $\lim_{n\rightarrow \infty} S_n = \lim_{m\rightarrow \infty} 1 + \frac{m+1}{2} = \infty$. So the series diverges.
+
+This is called the harmonic series, and is the classic example of a series whose terms go to $0$ be which diverges anyway.
+\end{proof}
+
+This is not the only example of a series whose terms go to $0$ but which diverges. There are plenty of interesting examples of this behavior. For example, $\displaystyle\sum_{p \text{ prime}} \frac{1}{p}$ also diverges, although much more slowly. While outside the scope of this course, this is traditionally shown using the Prime Number Theorem, which is equivalent to saying that the $n$th prime $p_n$ is approximately $n\ln(n)$ for $n$ very large.
+
+Another way to tell if a series is convergent is if it is absolutely convergent.
+
+\begin{defbo}{Absolutely Convergent Series}{}\index{Series!absolutely convergent} A series $\sum_{n = k}^\infty a_n$ is called absolutely convergent if $\sum_{n = k}^\infty |a_n|$ converges.\end{defbo}
+
+\begin{thmbo}{}{}Absolutely convergent series converge.\end{thmbo}
+
+\begin{proof} See \ref{thm:absConv} in the appendices for a proof. It is a technical proof, using the notion of Cauchy sequences. I have included it for completeness's sake.\end{proof}
+
+With this new notion, we can prove a very powerful convergence test.
+
+\begin{thmbo}{D'Alembert's Ratio Test}{}\index{Series!ratio test} Suppose $\displaystyle\lim_{n\rightarrow \infty} \left| \frac{a_{n+1}}{a_n}\right| = L$.
+\begin{itemize}
+\item If $L < 1$, then $\sum_{n = k}^\infty a_n$ converges absolutely. (And therefore converges.)
+
+\item If $L > 1$, the series diverges.
+\end{itemize}
+\end{thmbo}
+ 
+\begin{proof} Suppose $\displaystyle\lim_{n\rightarrow \infty} \left| \frac{a_{n+1}}{a_n}\right| = L$.
+
+Suppose $L < 1$. Choose $\varepsilon > 0$ so that $L < L + \varepsilon < 1$. Since $\displaystyle\lim_{n\rightarrow \infty} \left| \frac{a_{n+1}}{a_n}\right| = L$, there exists $N \in \N$ with $N > k$ such that if $n \ge N$, then $\displaystyle \left| \frac{a_{n+1}}{a_n}\right| < L + \varepsilon$.
+
+As such, $|a_{N+j}| < (L + \varepsilon)|a_{N + j - 1}|$ for all $j \ge 1$. We can use this iteratively to conclude that $|a_{N+j}| < (L + \varepsilon)^j|a_N|$.
+
+We see then that $\sum_{n = k}^\infty |a_n| < \sum_{n = k}^{N-1} |a_n| + \sum_{j = N}^\infty (L + \varepsilon)^j|a_N|$. Since $L + \varepsilon < 1$, this geometric series converges.
+
+Now, the Comparison Theorem (from first year calculus) tells us that if $0 \le a_n \le b_n$ and $\sum_{n = k}^\infty b_n$ converges, then so does $\sum_{n = k}^\infty a_n$. So, by the Comparison Theorem, $\sum_{n = k}^\infty |a_n|$ converges.
+
+Therefore, $\sum_{n=k}^\infty a_n$ converges absolutely.
+
+Now, supposing that $L > 1$, we choose $\varepsilon$ so that $1 < L - \varepsilon < L$. Since $\displaystyle\lim_{n\rightarrow \infty} \left| \frac{a_{n+1}}{a_n}\right| = L$, there exists $N \in \N$ with $N > k$ such that if $n \ge N$, then $\displaystyle \left| \frac{a_{n+1}}{a_n}\right| > L - \varepsilon$.
+
+In this case, we know that for $j \ge 0$, $|a_{N + j}| > (L - \varepsilon)^j|a_N|$. However, as $j\rightarrow \infty$,  $(L_\varepsilon)^j \rightarrow \infty$. As such, $\lim_{n \rightarrow \infty} a_n = \infty$. By the Divergence Test, $\sum_{n = k}^\infty a_n$ diverges.
+
+\end{proof}
+
+This is going to be an extremely useful test for us. In fact, when dealing with power series (as we will be very shortly), this test is the most useful.
+
+\begin{ex}{}{} The series $\sum_{n = 0}^\infty \frac{z^n}{n!}$ converges for all $n$.
+
+To see this, we apply the ratio test. We need to be careful here. Remember that in the ratio test, $a_n$ represents the $n$th term of the series. It does not represent the coefficient of $z^n$.
+
+So, in this case, $a_n = \frac{z^n}{n!}$. And therefore:
+
+$$\lim_{n\rightarrow \infty} \left| \frac{\frac{z^{n+1}}{(n+1)!}}{\frac{z^n}{n!}}\right| = \lim_{n\rightarrow \infty} \frac{|z|}{n+1} = 0$$
+
+Since $L = 0 < 1$ for all $z\in \C$, we see that the series converges absolutely for each $z\in \C$.
+\end{ex}
+
+\begin{ex}{}{} Find an $R\ge 0$ such that if $|z| < R$, then $\sum_{n = 0}^\infty \frac{z^n}{2^n}$ converges, and if $|z| > R$, then the sum diverges.
+
+This turns out to follow right away from the ratio test. We apply:
+
+$$\lim_{n\rightarrow \infty} \left| \frac{\frac{z^{n+1}}{2^{n+1}}}{\frac{z^n}{2^n}}\right| = \lim_{n\rightarrow \infty} \frac{|z|}{2}$$
+
+Now, if $\frac{|z|}{2} < 1$, the ratio test tells us that the series converges. And if $\frac{|z|}{2}> 1$, the series diverges. In other words, $R = 2$ works.
+\end{ex}
+
+\subsection{Power Series}
+
+Now that we've discussed series and developed the relevent tools, we can now talk about power series.
+
+\begin{defbo}{Power series}{}\index{Power series}\index{Series!power series}A power series centered at $z_0$ is a function $f(z)$ given by:
+
+$$f(z) = \sum_{n = 0}^\infty a_n(z-z_0)^n$$
+
+The domain of this function is every point where this series converges, and contains at least $z_0$.
+
+For some function $g(z)$, we say that $g(z)$ is represented by the power series $\sum_{n = 0}^\infty a_n(z-z_0)^n$ on a domain $D$ if $g(z) = \sum_{n = 0}^\infty a_n(z-z_0)^n$ on $D$.
+\end{defbo}
+
+We've already seen one example of a power series.
+
+\begin{ex}{}{} $\frac{1}{1-z}$ is represented by the power series $\sum_{n = 0}^\infty z^n$ on $B_1(0)$.\end{ex}
+
+One of the most crucial facts moving forward is that holomorphic functions can be represented by power series. This is a drastic difference between the complex and real theory. There are infinitely differentiable functions over $\R$ which cannot be meaningfully represented by power series. That is not the case over $\C$.
+
+\begin{thmbo}{}{holoAna} Suppose $f(z)$ is holomorphic on a domain $D$, and $z_0 \in D$. Then there exists some $R > 0$ such that if $|z- z_0| < R$, then:
+
+$$f(z) = \sum_{n = 0}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n$$
+\end{thmbo}
+
+\begin{proof} Suppose $f(z)$ is holomorphic on $D$. Let $R > 0$ such that $B_R(z_0) \subset D$.
+
+Let $w \in B_R(z_0)$. Our goal is to show that $f(w) = \sum_{n = 0}^\infty \frac{f^{(n)}(z_0)}{n!}(w-z_0)^n$.
+
+Choose $r \in \R$ such that $|w - z_0| < r < R$. This can be done since $w \in B_R(z_0) \implies |w - z_0| < R$. Let $\gamma_r$ be the circle of radius $r$ centered at $z_0$, travelled once counterclockwise. By the Cauchy Integral Formula:
+
+$$f(w) = \frac{1}{2\pi i } \int_{\gamma_r} \frac{f(z)}{z-w}dz$$
+
+For the moment, let us consider $\frac{1}{z-w}$. We can rewrite this as:
+
+$$\frac{1}{z-w} = \frac{1}{(z-z_0) - (w - z_0)} = \frac{1}{(z-z_0)}\frac{1}{1- \frac{w - z_0}{z-z_0}}$$
+
+Now, since $|w - z_0| < r$ and $|z - z_0| = r$ (since $z$ is on $\gamma_r$), we know that $\left|\frac{w-z_0}{z-z_0}\right| < 1$. So, our geometric series formula gives that:
+
+$$\frac{1}{z-w} = \frac{1}{z-z_0} \sum_{n = 0}^\infty \left(\frac{w - z_0}{z-z_0}\right)^n = \sum_{n = 0}^\infty \frac{(w-z_0)^n}{(z-z_0)^{n+1}}$$
+
+And therefore, $f(w) = \frac{1}{2\pi i} \int_{\gamma_r} \sum_{n = 0}^\infty (w-z_0)^n\frac{f(z)}{(z-z_0)^{n+1}}dz$. By uniform convergence of the series (see theorem \ref{thm:1/1-z} in the appendices for the very technical proof), we have that:
+
+\begin{align*}f(w) &= \frac{1}{2\pi i} \int_{\gamma_r} \sum_{n = 0}^\infty (w-z_0)^n\frac{f(z)}{(z-z_0)^{n+1}}dz\\
+&= \sum_{n = 0}^\infty \frac{1}{2\pi i}\int_{\gamma_r} (w-z_0)^n\frac{f(z)}{(z-z_0)^{n+1}} dz\\
+&=\sum_{n = 0}^\infty \frac{(w-z_0)^n}{2\pi i}\int_{\gamma_r} \frac{f(z)}{(z-z_0)^{n+1}} dz\\
+&\hspace{-4pt}\stackrel{CIF}{=} \sum_{n = 0}^\infty \frac{(w-z_0)^n}{2\pi i}\frac{2\pi i f^{(n)}(z_0)}{n!}\\
+&= \sum_{n = 0}^\infty \frac{f^{(n)}(z_0)}{n!}(w-z_0)^n
+\end{align*}
+
+\noin as desired. Since $w$ was chosen arbitrarily in $B_R(z_0)$, the power series expansion holds on $B_R(z_0)$.
+
+\end{proof}
+
+We finish today by calculating a couple of examples of power series.
+
+\begin{ex}{}{} Consider $f(z) = e^z$. Find the power series expansion for $e^z$ centered at $z_0$. For which $z\in \C$ is it valid?
+
+Well, $f^{(n)}(z) = e^z$, and so the power series expansion of $e^z$ at $z_0$ is:
+
+$$\sum_{n = 0}^\infty \frac{e^{z_0}}{n!}(z-z_0)^n$$
+
+Now, the theorem above was valid on $B_R(z_0)$ where $B_R(z_0)$ is contained in a domain where $f(z)$ is holomorphic. However, $e^z$ is entire, and so all $R$ satisfy this condition. As such, the power series expansion is valid on $B_R(z_0)$ for any $R$. Since for each $w\in \C$, there exists $R$ so that $w\in B_R(z_0)$, it follows that this power series expansion is valid on $\C$.
+\end{ex}

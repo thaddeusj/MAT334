@@ -1,0 +1,205 @@
+\section{Thursday, May 23}
+
+\todaybox{We will continue our discussion of logarithms and power functions. After that, we will briefly discuss limits and continuity.}
+
+Last class, we talked about complex trigonometric functions:
+$$\cos(z) = \frac{e^{iz} + e^{-iz}}{2}$$
+$$\sin(z) = \frac{e^{iz} - e^{-iz}}{2i}$$
+
+As well as the complex logarithm.
+
+The complex logarithm is the most important example of a multi-valued function. In fact, all of the examples we are going to see in this course (including the ones we already have seen!) will depend on the complex logarithm.
+
+\begin{notation} We are often very lazy with our notation for logarithms. If $e^w = z$, we very often write that $w = \log(z)$.
+
+But, as we've seen, it is possible to have $w_1\ne w_2$ with $e^{w_1} = e^{w_2} = z$. So is $w_1 = \log(z)$ or is $w_2 = \log(z)$?
+
+The answer is that $\log(z)$ isn't really one number. The complex logarithm is a multi-valued function, and so $w_1$ and $w_2$ are two different values of the same multi-valued function. So when we say that $w = \log(z)$, we really mean that $w$ is {\bf one of} the logarithms of $z$.
+\end{notation}
+
+\begin{defbo}{$\log(z)$}{log}\index{Function!$\log(z)$}
+The complex logarithm $\log(z)$ is the multi-valued function:
+$$\log(z) = \{w\in \C| e^w = z\}$$
+
+For any $z\ne 0$, $\log(z)$ is infinitely-valued.
+\end{defbo}
+
+
+\begin{ex}{}{} Suppose we know that $\log(z) = 1 + 3i$. Is it possible that $\log(z) = 1 + 7i$?
+
+No. We would need $e^{1 + 3i} = e^{1 + 7i}$. But these have different angular components. The angles $3$ and $7$ do not point in the same direction!
+\end{ex}
+
+
+
+\begin{defbo}{Complex Exponentiation}{exponentiation}\index{$z^a$} 
+Let $a,z\in \C$. Then $z^a = e^{a\log(z)}$.
+\end{defbo}
+
+How do we interpret this? After all, we just discussed that $\log(z)$ isn't one number. This formula should be interpretted as saying that $z^a$ is a multi-valued function, and that its values are $e^{aw}$ where $w$ is a logarithm for $z$.
+
+
+\begin{ex}{}{} This definition has some surprising consequences. For example, every value of $i^i$ is real!
+
+Why is that? Well, $i^i = e^{i\log(i)}$. However, since $|i| = 1$, we see that the logarithms of $i$ are:
+$$\log(i) = \ln(1) + i\left(\frac{\pi}{2} + 2k\pi\right) = i\left(\frac{\pi}{2} + 2k\pi\right)$$
+
+As such, $i^i = e^{i^2\left(\frac{\pi}{2} + 2k\pi\right)} = e^{-\frac{\pi}{2} + 2k\pi}$, which is a real number!\end{ex}
+
+\begin{ex}{}{}Consider the following claim:
+
+\begin{fthmbo}{}{ex1} Every complex number is real.\end{fthmbo}
+
+You should quickly convince yourself that this is false. For example, why is $i$ not real? (What property defines $i$?)
+
+So, if this is a false claim, any proof of this claim must have an error. Find the error (or errors, if there are more than one) in the following proof.
+
+\MyCBox{black}{white}{\begin{proof} Let $z\in \C$, and write $z$ in polar form as $z = re^{i\theta}$. Then we find that:
+$$z = re^{i\theta} = re^{i\left(\frac{2\pi\theta}{2\pi}\right)} = r(e^{2\pi i})^{\frac{\theta}{2\pi}}$$
+
+But $e^{2\pi i} = \cos(2\pi) + i\sin(2\pi) = 1$. So:
+$$z = r(1^{\frac{\theta}{2\pi}}) = r \in \R$$
+
+Since $z \in \R$ for any complex number $z$, every complex number is real.
+
+\end{proof}}
+
+Be careful. Any errors are subtle. If you think you have an easy answer, chances are your answer is not correct.
+
+\paragraph{Solution:} As we discussed in class, the error occurs in two places. When we write:
+$$e^{i\frac{2\pi\theta}{2\pi}} = (e^{i2\pi})^{\frac{\theta}{2\pi}}$$
+
+
+\noin we are choosing a branch $f(z)$ of the multivalued function $z^{\frac{\theta}{2\pi}}$ so that $f(1) = e^{i\theta}$.
+
+On the other hand, when we say that $1^{\frac{\theta}{2\pi}} = 1$, we are choosing a branch $g(z)$ with $g(1) = 1$. We're working with two different branches as if they are the same!
+\end{ex}
+
+Now that we have talked about how they are multivalued, and how that requires some care, let's talk about their branches. Corresponding to the principal Argument $\Arg(z)$, there is a principal branch of these multivalued functions as well:
+
+\begin{defbo}{Principal Logarithm}{prinLog}\index{Logarithm!principal}
+Let $z\in \C\setminus(-\infty,0]$. The principal logarithm of $z$ is:
+$$\Log(z) = \ln|z| + i\Arg(z)$$
+\end{defbo}
+
+\begin{defbo}{Principal Branch of $z^a$}{prinpower}\index{$z^a$!principal branch}
+The principal branch of $z^a$ is given by $e^{a\Log(z)}$.
+\end{defbo}
+
+\begin{ex}{}{} Find the principal value of $i^{1 - i}$.
+
+The principal value (which comes from the principal branch) is:
+$$e^{(1-i)\Log(i)} = e^{(1-i)i\frac{\pi}{2}} = e^{\frac{\pi}{2} + i\frac{\pi}{2}} = e^{\frac{\pi}{2}}i$$
+\end{ex}
+
+\begin{ex}{}{} Let $n\in \Z$. Is $z^n$ a single valued function?
+
+Well, $z^n = e^{n\log(z)}$. Let $z = re^{i\theta}$. Then:
+$$z^n = e^{n\log(z)} = e^{n(\ln|z| + i(\theta + 2k\pi))}$$
+
+\noin where $k\in \Z$. However, notice that $nk\in \Z$, so $e^{i(2nk)\pi} = 1$. Therefore:
+$$z^n = e^{n(\ln|z| + i\theta)} = e^{\ln(|z|^n) + in\theta} = |z|^ne^{in\theta}$$
+
+So this is a single valued function. Regardless of our choice of argument, we get the same result.
+\end{ex}
+
+\begin{ex}{}{} Consider the formula $f(z) = a^z$. Is this a function?
+
+Let $z = x +iy$. We have $a^z = e^{z\log(a)} = e^{z(\ln|a| + i\arg(a))} = e^{(x\ln|a| - y\arg(a)) + i(x\arg(a) + y\ln|a|)}$. This formula outputs a single value if and only if $y\arg(a)$ doesn't depend on the choice of argument, so $y = 0$. Also, we need that $e^{ix\arg(a)}$ doesn't depend on the choice of argument, so $x \in \Z$.
+\end{ex}
+
+So, this tells us that $a^z$ is a multi-valued function as well! Does that mean that $e^z$ is multi-valued? The answer to that is no. Our definition of $e^z$ doesn't depend on the argument of $e$. Technically, our definition of $e^z$ is the principal branch of the function:
+$$f(z) = e^{\RE(z\log(e))}(\cos(\IM(z\log(e))) + i\sin(\IM(z\log(e))))$$
+
+However, to avoid unnecessary notational baggage (after all, this function is a bit of a mouthful) and to avoid unnecessary abstraction, $e^z$ will always be understood to be an exception to $a^z$ being a multi-valued function.
+
+\begin{ex}{}{} Find the range of $\sin(z)$.
+
+Let $w\in \C$. We would like to see if there exists some $z\in\C$ with $\sin(z) = w$. Supposing there is, we have:
+$$\frac{e^{iz} - e^{-iz}}{2i} = w$$
+
+Rearranging gives $e^{iz} - 2iw - e^{-iz} = 0$. Let $u = e^{iz}$. Since $u\ne 0$, we see that:
+$$u - 2iw - \frac{1}{u} = 0 \iff u^2 - 2iwu - 1 = 0$$
+
+And the quadratic formula tells us that:
+$$u = iw + (-w^2 + 1)^{\frac{1}{2}}$$
+
+And so $z = \frac{\log(u)}{i}$.
+
+But wait, we're not done! We need to know that $\log(u)$ actually exists for any given $w$. We assumed $u\ne 0$, but are we guaranteed that it is? After all, it depends on $w$. How do we know there doesn't exist some $w$ such that $u = 0$?
+
+Suppose $u = 0$. Then $(1 - w^2)^{\frac{1}{2}} = iw$. Squaring both sides gives $1 - w^2 = -w^2$, which cannot occur. So $u\ne 0$, and therefore such a $z$ exists for any $w$.
+\end{ex}
+
+This example gives us an idea of how to define inverse trig functions as well:
+
+\begin{defbo}{$\arcsin$}{arcsin}\index{Function!$\arcsin$} Let $z\in \C$. Then:
+
+$$\arcsin(z) = -i\log(iz + (1 - z^2)^{\frac{1}{2}})$$
+
+Further, the principal arcsin is given by:
+$$\Arcsin(z) = -i\Log(iz + (1-z^2)^{\frac{1}{2}})$$
+
+\noin where $(1 - z^2)^{\frac{1}{2}}$ is the principal square root.
+\end{defbo}
+
+\subsection{Limits and Continuity}
+
+Just like for differentiation over $\R$, our first building block is the limit. There is a complication here though: in $\R$, when we take a limit we're looking at two directions: $\lim_{x\rightarrow c} f(x)$ depends on what $f(x)$ does as $x$ approaches $c$ from the left hand and from the right hand.
+
+In $\C$, we not longer have two directions. We have an infinite number! More than that though, we need to consider not just travelling along straight lines, but rather any curve toward our point.
+
+To capture this, I'll present two definitions. The first is a fairly formal one, and we aren't going to work with it at all. It may appear in some proofs, but that's all. The second is the intuitive way to understand limits.
+
+\begin{defbo}{$\delta$-$\varepsilon$ Definition of a Limit}{limitde}
+\index{Limit!formal definition}
+Let $f:U\rightarrow \C$, and $z_0 \in \C$. Further, assume there exists some $r > 0$ such that $\{z\in \C| 0 < |z-z_0| < r\} \subset U$. Then $\lim_{z\rightarrow z_0} f(z) = L$ if:
+$$\forall \varepsilon > 0, \exists \delta \text{ such that } 0 < |z-z_0| < \delta \implies |f(z) - L| < \varepsilon$$
+\end{defbo}
+
+Intuitively, this says that for any $\varepsilon > 0$, we can find a circle around $z_0$ so that if $z$ is inside this circle, then the distance from $f(z)$ to $L$ is less than $\varepsilon$. I.e., $f(z)$ gets as close as we want to $L$, and stays that close.
+
+There's another way to understand limits that is more in line with how we visualize limits. It involves looking at the real and imaginary parts of $f(z)$.
+
+\begin{defbo}{$\R^2$ Definition of a Limit}{limitr2}
+\index{Limit!$\R^2$}
+Let $f:U\rightarrow \C$ and $z_0 = x_0 + iy_0 \in U$. Further, assume there exists some $r > 0$ such that $\{z\in \C| |z-z_0| < r\} \subset U$. Let $z = x+ iy$, and write $f(x + iy) = u(x,y) + iv(x,y)$. That is, write $f(z)$ in terms of its real and imaginary parts, which we will view as functions on $\R^2$.
+
+Then $\lim_{z\rightarrow z_0} f(z) = L$ if:
+$$\lim_{(x,y)\rightarrow (x_0,y_0)} u(x,y) = \RE(L)$$
+$$\lim_{(x,y)\rightarrow (x_0,y_0)} v(x,y) = \IM(L)$$
+\end{defbo}
+
+So, in essence, complex limits can be viewed as just a pair of limits on $\R^2$. Remember, when looking at limits on $\R^2$, we need to consider arbitrary paths to $z_0$. So, for example, when taking a limit to $0$, the limit must exist and be the same along $y = 0$, $x = 0$, $y = x$, $y = x^4$, etc. 
+
+Because of this, a lot of complex limits turn out to be unpleasant. However, unlike working over $\R^2$, a lot will turn out to be really nice. Many of the techniques for understanding limits that we saw in first year calculus work.
+
+\begin{ex}{}{} Find $\lim_{z\rightarrow 0} \frac{z}{\OL{z}}$.
+
+You could try doing this algebraically. However, this is much easier to understand by trying a few paths out.
+
+If the limit exists, then its value must be give by approaching $0$ along the line $y = 0$. We find:
+$$\lim_{z\rightarrow 0} \frac{z}{\OL{z}} = \lim_{(x,0) \rightarrow (0,0)} \frac{x + 0i}{x-0i} = 1$$
+
+On the other hand, if the limit exists, it must also be given by approaching $0$ along the line $x = 0$. We find:
+$$\lim_{z\rightarrow 0} \frac{z}{\OL{z}} = \lim_{(0,y) \rightarrow (0,0)} \frac{0 + iy}{0 - iy} = -1$$
+	
+Since these limits disagree, we find that $\lim_{z\rightarrow 0} \frac{z}{\OL{z}}$ does not exist.
+\end{ex}
+
+\begin{ex}{}{} Find $\lim_{z\rightarrow 0} e^z$.
+
+As we have seen before, we know that $e^z = e^x\cos(y) + ie^x\sin(y)$. From our definition, we know that we need to find the limits:
+$$\lim_{(x,y)\rightarrow(0,0)} e^x\cos(y)$$
+$$\lim_{(x,y)\rightarrow(0,0)} e^x\sin(y)$$
+
+For the first one, we can use the product law for limits to get:
+$$\lim_{(x,y)\rightarrow (0,0)}e^x\cos(y) = \left(\lim_{(x,y)\rightarrow (0,0)}e^x\right)\left(\lim_{(x,y)\rightarrow (0,0)} \cos(y)\right)$$
+
+Since $e^x$ does not depend on $y$, $\lim_{(x,y)\rightarrow (0,0)}e^x = \lim_{x\rightarrow 0}e^x = 1$.
+
+And since $\cos(y)$ does not depend on $x$, $\lim_{(x,y)\rightarrow (0,0)} \cos(y) = \lim_{y\rightarrow 0} \cos(y) = 1$.
+
+Since both of these limits exist, the product law allows us to conclude that $\lim_{(x,y)\rightarrow (0,0)}e^x\cos(y) = \left(\lim_{(x,y)\rightarrow (0,0)}e^x\right)\left(\lim_{(x,y)\rightarrow (0,0)} \cos(y)\right) = 1$. A similar argument gives that $\lim_{(x,y)\rightarrow(0,0)} e^x\sin(y) = 0$. And then the definition of the limit gives us that:
+$$\lim_{z\rightarrow 0}e^z = 1 + 0i = 1$$
+\end{ex}
